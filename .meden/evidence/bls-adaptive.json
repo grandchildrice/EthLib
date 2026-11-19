@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "track": "ethereum-deposit-registration",
+  "milestone": "adaptive-shared-message-oracle-coupling",
+  "path": "EthLib/Consensus/Proofs/DepositAdaptive.lean",
+  "sha256": "b64a0cf34ad9858920f64d97365386e013d0bf934cefc34244bc58a2397ee6e7",
+  "namespace": "EthLib.Consensus.DepositRegistration.Adaptive",
+  "theorems": [
+    "hash_real",
+    "lookup_scaleTable",
+    "prEvent_hash_projectState",
+    "preservesInv_bad",
+    "dominatedUntilBad",
+    "prEvent_run_projectState_le",
+    "projectState_calls",
+    "projectState_signed",
+    "scalarAt_projectState",
+    "mem_support_hash",
+    "cachedHash_of_mem_support_hash",
+    "preservesInv_lookup",
+    "cachedHash_after_adaptive",
+    "cachedHash_projectState",
+    "Output.collision_of_registrationRoot_eq_of_domain_ne",
+    "fresh_of_ready_not_bad",
+    "exists_rolesFit_iff",
+    "Verified.registrationWitnesses",
+    "extract_eq_of_verified_ready",
+    "prEvent_verified_ready_le_solver"
+  ],
+  "checked_scope": [
+    "One ordinary ByteArray-indexed hash cache shared by arbitrary message queries, honest signing and every deposit verification",
+    "Immutable arbitrary per-root role mask programs challenge-basis entries; repeat queries preserve original coefficients, positions and answers, including hash queries made before deposit disclosure",
+    "One-query distributional projection by nonzero challenge scalar and composition through arbitrary finite adaptive OracleComp computations until explicit masked-signing bad event",
+    "Exact signing history and hash call counts retained, including duplicate queries and all final verification queries",
+    "Actual accepted deposit and byte aggregate checks plus mask/nonzero-coefficient event imply extraction; no pointwise programmed-hash equations assumed",
+    "Probability of real shared-oracle verifier success on the suitable-mask event, excluding explicit bad signing, bounded by causal solver success at fixed honest secret and nonzero challenge scalar",
+    "Suitable mask exists for a fixed transcript iff target and nonhonest registration roots do not overlap signing requests; existence witness explicitly not a causal selection algorithm",
+    "Registration-root overlap with actual signed root of another domain yields concrete SHA-256 MessageCollision without global injectivity assumption"
+  ],
+  "checks": [
+    {
+      "command": "offline lake build --wfail EthLib.Consensus.Proofs.DepositAdaptive",
+      "result": "passed",
+      "jobs": 8526,
+      "report": "/tmp/meden-bls-adaptive-build.json"
+    },
+    {
+      "command": "offline lake env lean -DwarningAsError=true temporary-print-axioms-source",
+      "result": "passed",
+      "report": "/tmp/meden-bls-adaptive-axioms.json",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "audited": [
+        "prEvent_hash_projectState",
+        "prEvent_run_projectState_le",
+        "cachedHash_after_adaptive",
+        "exists_rolesFit_iff",
+        "extract_eq_of_verified_ready",
+        "prEvent_verified_ready_le_solver",
+        "Output.collision_of_registrationRoot_eq_of_domain_ne"
+      ]
+    }
+  ],
+  "remaining": [
+    "Select masks causally with useful probability; fixed-mask theorem deliberately retains Ready and no-Bad conditions inside probability event",
+    "Account for zero cached scalar probability and forbidden signing/registration-root overlap; domain lemma produces collision witnesses but no collision-resistance advantage bound",
+    "Average solver relation over honest and challenge scalar distributions and discharge mask losses before claiming unconditional aggregate co-CDH bound",
+    "No claim of full light-client committee provenance or complete Ethereum deposit aggregate security"
+  ],
+  "next_implementation": "Lazy independent role bit at first ordinary-message query, retained with cache coefficient; prove hidden-bit projection to original game and success probability under finite root-disjoint transcripts. Do not use a global existential deposit-root classifier: SHA-256's finite digest space makes global no-collision assumptions inappropriate.",
+  "coverage_classification": "property modules: the imported BLS games are not among coverage/kinds.toml designated model prefixes"
+}

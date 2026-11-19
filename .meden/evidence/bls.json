@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "track": "ethereum-deposit-registration",
+  "workspace": "/home/gohan/workspace/EthLib",
+  "base": "e23c20e74583886c6e80709b7efa1eca0adff1fd",
+  "namespace": "EthLib.Consensus.DepositRegistration",
+  "files": [
+    {
+      "path": "EthLib/Consensus/Proofs/DepositRegistration.lean",
+      "sha256": "90868c802a84adee329f77c3c9fcb5ddb68c2a3145e0e135267e9848436664ae",
+      "theorems": [
+        "signingRoot_total",
+        "isValidDepositSignature_eq",
+        "check_iff",
+        "accepted_iff",
+        "signingRoot_signature",
+        "accepted_of_sign",
+        "message_commitmentSized",
+        "signingRoot_binding",
+        "collision_of_signingRoot_eq_of_pubkey_ne",
+        "collision_of_signingRoot_eq_of_domain_ne"
+      ]
+    },
+    {
+      "path": "EthLib/Consensus/Proofs/DepositRegistry.lean",
+      "sha256": "5276bc6a3eeaa728d9ad5dc46cbeda84d1bb8206d06729f038a477fefda562da",
+      "theorems": [
+        "registered_of_empty",
+        "Registered.of_validators_eq",
+        "Registered.addValidatorToRegistry",
+        "Registered.applyPendingDeposit",
+        "Registered.addPendingDeposit",
+        "Registered.applyDepositElectra",
+        "Registered.applyDeposit",
+        "Registered.foldlM_applyPendingDeposit",
+        "Registered.foldlM_applyDeposit",
+        "Registered.processDeposit",
+        "Registered.foldlM_processDeposit",
+        "registered_of_processDeposits_from_empty"
+      ]
+    },
+    {
+      "path": "EthLib/Consensus/Proofs/DepositSecurity.lean",
+      "sha256": "b73cd7dbc1bffd8424f87ae719f2318e47b030efcf48b8e0b7551ef6d60df331",
+      "theorems": [
+        "accepted_isDh",
+        "Registered.isDh",
+        "Forgery.oracleChecks_hashPoint",
+        "Forgery.wins_hashPoint_iff",
+        "Forgery.byteWins_of_wins",
+        "Forgery.runAt_toBls",
+        "Forgery.advantage_le_byteForgeAdvantage",
+        "Forgery.snd_map_experiment",
+        "Forgery.hashCallBound_iff",
+        "Forgery.advantage_le_coCdhAdvantage",
+        "Forgery.nonzeroAdvantage_le_byteForgeAdvantage",
+        "Forgery.nonzeroAdvantage_le_coCdhAdvantage"
+      ]
+    },
+    {
+      "path": "EthLib/Consensus/Proofs/DepositAggregate.lean",
+      "sha256": "78209dea3981b886aab5fa84156500f35ae238e7dfbbe5d7f36d9250916940e7",
+      "theorems": [
+        "Aggregate.isDh_of_registration",
+        "Aggregate.isDh_sum_of_byteFastAggregateVerify",
+        "Aggregate.extractAggregate_eq_of_registrations"
+      ]
+    }
+  ],
+  "checked_scope": [
+    "Exact concrete Ethereum deposit message/domain/ordinary-BLS verification correspondence",
+    "Equal SSZ signing roots bind public key, credentials and amount or yield concrete SHA-256 MessageCollision",
+    "Cross-domain root equality yields concrete SHA-256 MessageCollision",
+    "Actual finite processDeposit/applyDeposit/applyPendingDeposit traces retain each accepted registration witness, including unsigned known-key topups and Electra zero initial credit",
+    "Single honest key fresh-deposit forgery random-oracle game reduces to named existing co-CDH solver with exact total BLS hash-call accounting, including nonzero key distribution correction",
+    "Aggregate algebra extracts honest share from actual deposit signatures under explicit pointwise programmed registration-root hashes"
+  ],
+  "checks": [
+    {
+      "command": "/tmp/meden-ethlib-checker lake --workspace /home/gohan/workspace/EthLib --lean /home/gohan/.elan/toolchains/leanprover--lean4---v4.36.0 --timeout 1800 -- build --wfail EthLib.Consensus.Proofs.DepositAggregate",
+      "result": "passed",
+      "jobs": 8524,
+      "report": "/tmp/meden-bls-final.json"
+    },
+    {
+      "command": "offline lake env lean -DwarningAsError=true temporary-print-axioms-source",
+      "result": "passed",
+      "report": "/tmp/meden-bls-axioms.json",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "audited": [
+        "signingRoot_binding",
+        "collision_of_signingRoot_eq_of_domain_ne",
+        "registered_of_processDeposits_from_empty",
+        "Forgery.advantage_le_coCdhAdvantage",
+        "Forgery.nonzeroAdvantage_le_coCdhAdvantage",
+        "Aggregate.extractAggregate_eq_of_registrations"
+      ]
+    }
+  ],
+  "remaining": [
+    "No adaptive shared-message-oracle programming/coupling proof for aggregate of adversarial deposit-registered keys yet",
+    "Separate key-tag random oracle of existing PopGame must not be silently identified with ordinary BLS deposit signatures",
+    "Opaque root-byte hash queries can precede disclosure of deposit key/credentials/amount; any typed-oracle restriction must remain explicit",
+    "Whole beacon-state reachability and actual light-client committee registration provenance are not covered by deposit-only traces"
+  ],
+  "coverage_classification": "property modules: the imported BLS games are not among coverage/kinds.toml designated model prefixes"
+}

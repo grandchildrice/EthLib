@@ -1,0 +1,177 @@
+{
+  "version": 1,
+  "track": "ethlib-tls",
+  "status": "checked",
+  "created_at": "2026-11-19T04:00:10.138586+00:00",
+  "upstream_base": "e23c20e74583886c6e80709b7efa1eca0adff1fd",
+  "lean_toolchain": "leanprover/lean4:v4.36.0",
+  "files": [
+    {
+      "path": "EthLib/Networking/Proofs/Quic/Tls/Reachable.lean",
+      "sha256": "b07a7d5be7a402f3e41444bc3af67c5af032793ddcb7172d084bb74378e3d349"
+    }
+  ],
+  "source_binding": {
+    "path": "EthLib/Networking/Quic/Tls/Handshake.lean",
+    "sha256": "eac876fe3a8b395225687ffea17bf82a2756fc481888cdf2b5b16f3cafe3595c",
+    "unchanged": true
+  },
+  "theorems": [
+    {
+      "name": "EthLib.Networking.Quic.Tls.Handshake.ClientTrace.certificate_verify",
+      "statement": "theorem ClientTrace.certificate_verify {config : Config} {expected : ByteArray}\n    {observations : List Observation} {state : State}\n    (trace : ClientTrace config expected observations state)\n    (phase : state.phase = .serverFinished) :\n    ClientCertificateObserved config expected observations state.peerChain"
+    },
+    {
+      "name": "EthLib.Networking.Quic.Tls.Handshake.ServerTrace.certificate_verify",
+      "statement": "theorem ServerTrace.certificate_verify {config : Config} {observations : List Observation}\n    {state : State} (trace : ServerTrace config observations state)\n    (phase : state.phase = .clientFinished) :\n    ServerCertificateObserved config observations state.peerChain"
+    },
+    {
+      "name": "EthLib.Networking.Quic.Tls.Handshake.ClientCertificateObserved.signature",
+      "statement": "theorem ClientCertificateObserved.signature {config : Config} {expected : ByteArray}\n    {observations : List Observation} {chain : List ByteArray}\n    (observed : ClientCertificateObserved config expected observations chain) :\n    ∃ observation ∈ observations, ∃ algorithm signature peer,\n      observation.before.peerChain = chain ∧\n      readMessage .handshake observation.input =\n        .ok (.certificateVerify algorithm signature) ∧\n      algorithm ∈ config.policy.signatureSchemes ∧ algorithm.val = 0x0403 ∧\n      authenticate config (some expected) chain = .ok peer ∧\n      Libp2p.Tls.verifyP256 peer.certificate.spki\n        (certificateVerifyInput true observation.before.transcript.hash) signature = true"
+    },
+    {
+      "name": "EthLib.Networking.Quic.Tls.Handshake.ServerCertificateObserved.signature",
+      "statement": "theorem ServerCertificateObserved.signature {config : Config} {observations : List Observation}\n    {chain : List ByteArray}\n    (observed : ServerCertificateObserved config observations chain) :\n    ∃ observation ∈ observations, ∃ algorithm signature peer,\n      observation.before.peerChain = chain ∧\n      readMessage .handshake observation.input =\n        .ok (.certificateVerify algorithm signature) ∧\n      algorithm ∈ config.policy.signatureSchemes ∧ algorithm.val = 0x0403 ∧\n      authenticate config none chain = .ok peer ∧\n      Libp2p.Tls.verifyP256 peer.certificate.spki\n        (certificateVerifyInput false observation.before.transcript.hash) signature = true"
+    },
+    {
+      "name": "EthLib.Networking.Quic.Tls.Handshake.ClientTrace.completion_authenticated",
+      "statement": "theorem ClientTrace.completion_authenticated {config : Config} {expected : ByteArray}\n    {observations : List Observation} {state : State} {input : FlightMessage} {step : Step}\n    {result : Completion} (trace : ClientTrace config expected observations state)\n    (accepted : clientStep config expected state input = .ok step)\n    (completed : step.completion = some result) :\n    ClientCertificateObserved config expected observations result.peerChain ∧\n      ∃ value, readMessage .handshake input = .ok (.finished value) ∧\n        checkFinished true state value = .ok ()"
+    },
+    {
+      "name": "EthLib.Networking.Quic.Tls.Handshake.ServerTrace.completion_authenticated",
+      "statement": "theorem ServerTrace.completion_authenticated {config : Config}\n    {observations : List Observation} {state : State} {input : FlightMessage} {step : Step}\n    {result : Completion} (trace : ServerTrace config observations state)\n    (accepted : serverStep config state input = .ok step)\n    (completed : step.completion = some result) :\n    ServerCertificateObserved config observations result.peerChain ∧\n      ∃ value, readMessage .handshake input = .ok (.finished value) ∧\n        checkFinished false state value = .ok ()"
+    },
+    {
+      "name": "EthLib.Networking.Quic.Tls.Handshake.ClientTrace.no_completion_without_certificateVerify",
+      "statement": "theorem ClientTrace.no_completion_without_certificateVerify {config : Config}\n    {expected : ByteArray} {observations : List Observation} {state : State}\n    {input : FlightMessage} {step : Step} {result : Completion}\n    (trace : ClientTrace config expected observations state)\n    (absent : ∀ observation ∈ observations, ∀ algorithm signature,\n      readMessage .handshake observation.input ≠\n        .ok (.certificateVerify algorithm signature))\n    (completed : step.completion = some result) :\n    clientStep config expected state input ≠ .ok step"
+    },
+    {
+      "name": "EthLib.Networking.Quic.Tls.Handshake.ServerTrace.no_completion_without_certificateVerify",
+      "statement": "theorem ServerTrace.no_completion_without_certificateVerify {config : Config}\n    {observations : List Observation} {state : State} {input : FlightMessage}\n    {step : Step} {result : Completion} (trace : ServerTrace config observations state)\n    (absent : ∀ observation ∈ observations, ∀ algorithm signature,\n      readMessage .handshake observation.input ≠\n        .ok (.certificateVerify algorithm signature))\n    (completed : step.completion = some result) : serverStep config state input ≠ .ok step"
+    },
+    {
+      "name": "EthLib.Networking.Quic.Tls.Handshake.clientStep_finished_before_certificateVerify",
+      "statement": "theorem clientStep_finished_before_certificateVerify (config : Config) (expected : ByteArray)\n    (state : State) (input : FlightMessage) (value : ByteArray)\n    (phase : state.phase = .serverCertificateVerify)\n    (message : readMessage .handshake input = .ok (.finished value)) :\n    clientStep config expected state input = .error .unexpectedMessage"
+    },
+    {
+      "name": "EthLib.Networking.Quic.Tls.Handshake.serverStep_finished_before_certificateVerify",
+      "statement": "theorem serverStep_finished_before_certificateVerify (config : Config) (state : State)\n    (input : FlightMessage) (value : ByteArray)\n    (phase : state.phase = .clientCertificateVerify)\n    (message : readMessage .handshake input = .ok (.finished value)) :\n    serverStep config state input = .error .unexpectedMessage"
+    }
+  ],
+  "scope": [
+    "ClientTrace and ServerTrace begin with successful actual clientStart/serverStart results and retain every actual successful step before/input/result.",
+    "One immutable Config throughout each trace, and one original expected peer ID throughout each client trace.",
+    "Every completion has a CertificateVerify observation in its earlier initialized trace for the same exact peer-chain bytes that completion returns.",
+    "The signature observation uses an offered and permitted P-256/SHA-256 scheme and the exact role-specific signed transcript; signature projection exposes the permitted scheme and authenticated peer.",
+    "The completing invocation checks the peer Finished against its actual pre-message transcript and saved handshake traffic secret.",
+    "No completion exists with no prior CertificateVerify message in that initialized trace; Finished in the CertificateVerify phase is universally rejected."
+  ],
+  "limits": [
+    "Finite accepted-call histories, with caller-supplied complete reassembled messages.",
+    "No claim of handshake unforgeability, cryptographic hardness, nonce pseudorandomness, fresh or secret ephemeral keys, constant-time execution, transport/reassembly authenticity, physical I/O or lifecycle enforcement after a rejected call.",
+    "The client/server agreement theorem for independent key shares and transcript delivery is not added.",
+    "The traces reset on each initialization; no previous trace authorizes a restarted one."
+  ],
+  "checks": {
+    "lean": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "",
+      "stderr": ""
+    },
+    "axioms": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "'EthLib.Networking.Quic.Tls.Handshake.ClientTrace.certificate_verify' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]\n'EthLib.Networking.Quic.Tls.Handshake.ServerTrace.certificate_verify' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]\n'EthLib.Networking.Quic.Tls.Handshake.ClientCertificateObserved.signature' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]\n'EthLib.Networking.Quic.Tls.Handshake.ServerCertificateObserved.signature' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]\n'EthLib.Networking.Quic.Tls.Handshake.ClientTrace.completion_authenticated' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]\n'EthLib.Networking.Quic.Tls.Handshake.ServerTrace.completion_authenticated' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]\n'EthLib.Networking.Quic.Tls.Handshake.ClientTrace.no_completion_without_certificateVerify' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]\n'EthLib.Networking.Quic.Tls.Handshake.ServerTrace.no_completion_without_certificateVerify' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]\n'EthLib.Networking.Quic.Tls.Handshake.clientStep_finished_before_certificateVerify' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]\n'EthLib.Networking.Quic.Tls.Handshake.serverStep_finished_before_certificateVerify' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]\n",
+      "stderr": ""
+    },
+    "layout": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "No layout findings.\n",
+      "stderr": ""
+    }
+  },
+  "mutation_guards": [
+    {
+      "role": "client",
+      "description": "Advance from the peer certificate directly to Finished, skipping CertificateVerify.",
+      "before": "return ⟨{ state with phase := .serverCertificateVerify }, [], none⟩",
+      "after": "return ⟨{ state with phase := .serverFinished }, [], none⟩",
+      "mutated_source_sha256": "ca5472046f358e632f005300f6892a557a57b3b2deec6769a741f98474c7ed8b",
+      "fresh_source_compilation": {
+        "success": true,
+        "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+        "stdout": "",
+        "stderr": ""
+      },
+      "unchanged_previous_step_proof": {
+        "success": true,
+        "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+        "stdout": "",
+        "stderr": ""
+      },
+      "unchanged_initialized_trace_proof": {
+        "success": false,
+        "termination": "Exited(ExitStatus(unix_wait_status(256)))",
+        "stdout": "EthLib/Networking/Proofs/Quic/Tls/Reachable.lean:207:2: warning: aesop: failed to prove the goal after exhaustive search.\nEthLib/Networking/Proofs/Quic/Tls/Reachable.lean:205:48: error: unsolved goals\nconfig : Config\nexpected : ByteArray\nstate : State\ninput : FlightMessage\nx : Phase\nheq : state.phase = Phase.serverCertificate\n__do_lift : Message\ncertificate : CertificateMessage\nleft : readMessage Level.handshake input = Except.ok (Message.certificate certificate)\nw : ClientHello\nleft_1 : saved state.hello = Except.ok w\nw_1 : State\nleft_2 : receiveCertificate config (some expected) w.extensions state certificate = Except.ok w_1\nw_2 : State\nleft_3 : receive w_1 input = Except.ok w_2\nleft_4 : w_2.phase = w_1.phase\nright : w_2.peerChain = w_1.peerChain\n⊢ False\n\nconfig : Config\nexpected : ByteArray\nstate : State\ninput : FlightMessage\nx : Phase\nheq : state.phase = Phase.serverCertificate\n__do_lift : Message\ncertificate : CertificateMessage\nleft : readMessage Level.handshake input = Except.ok (Message.certificate certificate)\nw : ClientHello\nleft_1 : saved state.hello = Except.ok w\nw_1 : State\nleft_2 : receiveCertificate config (some expected) w.extensions state certificate = Except.ok w_1\nw_2 : State\nleft_3 : receive w_1 input = Except.ok w_2\nleft_4 : w_2.phase = w_1.phase\nright : w_2.peerChain = w_1.peerChain\n⊢ False\n\nconfig : Config\nexpected : ByteArray\nstate : State\ninput : FlightMessage\nx : Phase\nheq : state.phase = Phase.serverCertificate\n__do_lift : Message\ncertificate : CertificateMessage\nleft : readMessage Level.handshake input = Except.ok (Message.certificate certificate)\nw : ClientHello\nleft_1 : saved state.hello = Except.ok w\nw_1 : State\nleft_2 : receiveCertificate config (some expected) w.extensions state certificate = Except.ok w_1\nw_2 : State\nleft_3 : receive w_1 input = Except.ok w_2\nleft_4 : w_2.phase = w_1.phase\nright : w_2.peerChain = w_1.peerChain\n⊢ w_1.peerChain = state.peerChain\n",
+        "stderr": ""
+      },
+      "proof_module_rebuilt_after_fault": "EthLib.Networking.Proofs.Quic.Tls.Handshake"
+    },
+    {
+      "role": "server",
+      "description": "Advance from the peer certificate directly to Finished, skipping CertificateVerify.",
+      "before": "return ⟨{ state with phase := .clientCertificateVerify }, [], none⟩",
+      "after": "return ⟨{ state with phase := .clientFinished }, [], none⟩",
+      "mutated_source_sha256": "79225fc1660375d65ce18fb6b0bb10260b64ff3c95174fa7e5090fcef31dc6ad",
+      "fresh_source_compilation": {
+        "success": true,
+        "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+        "stdout": "",
+        "stderr": ""
+      },
+      "unchanged_previous_step_proof": {
+        "success": true,
+        "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+        "stdout": "",
+        "stderr": ""
+      },
+      "unchanged_initialized_trace_proof": {
+        "success": false,
+        "termination": "Exited(ExitStatus(unix_wait_status(256)))",
+        "stdout": "EthLib/Networking/Proofs/Quic/Tls/Reachable.lean:220:2: warning: aesop: failed to prove the goal after exhaustive search.\nEthLib/Networking/Proofs/Quic/Tls/Reachable.lean:218:48: error: unsolved goals\nconfig : Config\nstate : State\ninput : FlightMessage\nx : Phase\nheq : state.phase = Phase.clientCertificate\n__do_lift : Message\ncertificate : CertificateMessage\nleft : readMessage Level.handshake input = Except.ok (Message.certificate certificate)\nw : Unit\nh : ensure (¬certificate.entries = []) Error.certificateRequired = Except.ok w\nw_1 : CertificateRequest\nleft_1 : saved state.request = Except.ok w_1\nw_2 : State\nleft_2 : receiveCertificate config none w_1.extensions state certificate = Except.ok w_2\nw_3 : State\nleft_3 : receive w_2 input = Except.ok w_3\nleft_4 : w_3.phase = w_2.phase\nright : w_3.peerChain = w_2.peerChain\n⊢ False\n\nconfig : Config\nstate : State\ninput : FlightMessage\nx : Phase\nheq : state.phase = Phase.clientCertificate\n__do_lift : Message\ncertificate : CertificateMessage\nleft : readMessage Level.handshake input = Except.ok (Message.certificate certificate)\nw : Unit\nh : ensure (¬certificate.entries = []) Error.certificateRequired = Except.ok w\nw_1 : CertificateRequest\nleft_1 : saved state.request = Except.ok w_1\nw_2 : State\nleft_2 : receiveCertificate config none w_1.extensions state certificate = Except.ok w_2\nw_3 : State\nleft_3 : receive w_2 input = Except.ok w_3\nleft_4 : w_3.phase = w_2.phase\nright : w_3.peerChain = w_2.peerChain\n⊢ False\n\nconfig : Config\nstate : State\ninput : FlightMessage\nx : Phase\nheq : state.phase = Phase.clientCertificate\n__do_lift : Message\ncertificate : CertificateMessage\nleft : readMessage Level.handshake input = Except.ok (Message.certificate certificate)\nw : Unit\nh : ensure (¬certificate.entries = []) Error.certificateRequired = Except.ok w\nw_1 : CertificateRequest\nleft_1 : saved state.request = Except.ok w_1\nw_2 : State\nleft_2 : receiveCertificate config none w_1.extensions state certificate = Except.ok w_2\nw_3 : State\nleft_3 : receive w_2 input = Except.ok w_3\nleft_4 : w_3.phase = w_2.phase\nright : w_3.peerChain = w_2.peerChain\n⊢ w_2.peerChain = state.peerChain\n",
+        "stderr": ""
+      },
+      "proof_module_rebuilt_after_fault": "EthLib.Networking.Proofs.Quic.Tls.Handshake"
+    }
+  ],
+  "reproduce": [
+    "lake build --wfail EthLib.Networking.Proofs.Quic.Tls.Reachable",
+    "lake env lean EthLib/Networking/Proofs/Quic/Tls/Reachable.lean",
+    "uv run --no-project --python 3.12 python scripts/check_lean_layout.py EthLib/Networking/Proofs/Quic/Tls/Reachable.lean"
+  ],
+  "integration": [
+    "Add public import EthLib.Networking.Proofs.Quic.Tls.Reachable to EthLib/Networking/Proofs.lean.",
+    "Update SOUNDNESS.md libp2p QUIC TLS handshake scope and the stale no-reachable-theorem comments in the specification Completion and previous Handshake proof module.",
+    "Run shared full-build/check-decls/layers checks after all three tracks are integrated."
+  ],
+  "attempt_history": [
+    {
+      "report": "/tmp/tls-build-1.json",
+      "outcome": "First build compiled 6493 jobs; only two final rejection lemmas needed rfl for throw/error reduction."
+    },
+    {
+      "report": "/tmp/tls-check-2.json",
+      "outcome": "Successful direct source check before removal of unused private helper."
+    },
+    {
+      "report": "/tmp/tls-axioms.json",
+      "outcome": "Audit fixture initially lacked module before import all; corrected audit succeeded."
+    },
+    {
+      "report": "/tmp/tls-fault-source.json",
+      "outcome": "Initial shadow LEAN_PATH lookup was incomplete; explicit setup importArts mapping then compiled the mutant successfully."
+    }
+  ]
+}

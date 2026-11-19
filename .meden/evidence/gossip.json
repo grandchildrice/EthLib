@@ -1,0 +1,81 @@
+{
+  "track": "gossip-mixed-traces",
+  "base_commit": "e23c20e74583886c6e80709b7efa1eca0adff1fd",
+  "branch": "meden/assurance-workspace",
+  "files": [
+    {
+      "path": "EthLib/Networking/Proofs/Gossip/Trace.lean",
+      "sha256": "cb57027527a6eb8b94f370003debedbe834145e595d946eea6c40c5af3a9812f"
+    },
+    {
+      "path": "bindings/python/tests/gossip/test_trace.py",
+      "sha256": "29d9ba285b64a1a161ac90d90fb44fdb98f107372a97b58d07fa91e046996f7d"
+    }
+  ],
+  "checked_theorems": [
+    "EthLib.Networking.Proofs.Gossip.Trace.heartbeat_seen_iff",
+    "EthLib.Networking.Proofs.Gossip.Trace.heartbeat_seen_expired",
+    "EthLib.Networking.Proofs.Gossip.Trace.step_seen",
+    "EthLib.Networking.Proofs.Gossip.Trace.publish_seen",
+    "EthLib.Networking.Proofs.Gossip.Trace.step_emits_seen",
+    "EthLib.Networking.Proofs.Gossip.Trace.step_seen_skip",
+    "EthLib.Networking.Proofs.Gossip.Trace.run_seen",
+    "EthLib.Networking.Proofs.Gossip.Trace.emits_once",
+    "EthLib.Networking.Proofs.Gossip.Trace.publish_once"
+  ],
+  "proof_command": "/tmp/meden-ethlib-checker lake --workspace /home/gohan/workspace/EthLib --lean /home/gohan/.elan/toolchains/leanprover--lean4---v4.36.0 --timeout 1800 -- build --wfail EthLib.Networking.Proofs.Gossip.Trace",
+  "proof_report": "/tmp/gossip-build-2.json",
+  "proof_result": {
+    "success": true,
+    "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+    "stdout": "\u2714 [2204/2205] Built EthLib.Networking.Proofs.Gossip.Trace (397ms)\nBuild completed successfully (2205 jobs).\n",
+    "stderr": ""
+  },
+  "hypotheses": [
+    "One GossipsubParameters value and one Message-to-MessageId function are fixed by Event.step and run.",
+    "Client choices, selection, ranking, peer standing and validation may vary per event; cache theorems need no lawfulness assumption.",
+    "emits_once requires pairwise nondecreasing times of first, intermediate and last events, and last.time < first.time + seen_ttl*1000.",
+    "publish_once requires a fresh publish, pairwise nondecreasing intermediate/final times, and final time before publish expiry.",
+    "Initial router state is arbitrary; no target dedup property is assumed."
+  ],
+  "scope": [
+    "Actual receiveRpc, heartbeat, join, leave and publish operations are called, rather than reimplemented.",
+    "Emits counts Out.forward and Out.delivered, not IWANT answers.",
+    "No claim of global delivery liveness, peer scoring, physical clocks, network transport, memory bounds or whole-client correspondence.",
+    "No runtime source, existing theorem statement, binding API or dependency changed."
+  ],
+  "checks_passed": [
+    "isolated Lean4.36 target build with --wfail",
+    "Lean layout",
+    "Lean writing suggestions",
+    "Ruff check",
+    "Ruff format check",
+    "Python comment wrap",
+    "Python docstrings",
+    "git diff --check"
+  ],
+  "remaining_checks": [
+    "native Python binding tests (50 cases in test_trace.py) once bindings built",
+    "check-decls / explicit axiom audit",
+    "common proof aggregator import and SOUNDNESS update owned by root"
+  ],
+  "tests": [
+    "48 mixed event orders: all permutations of heartbeat/join/leave/publish, after receive or publish, ending with replay before and exactly at TTL expiry",
+    "clock rollback counterexample to monotonicity hypothesis",
+    "IWANT answer remains allowed while replay forwarding/delivery are suppressed"
+  ],
+  "native_bindings": {
+    "success": true,
+    "isolated_report": "/tmp/ethlib-native-gossip-1.json",
+    "preparation_report": "/tmp/ethlib-native-python-preparation.json",
+    "exports_build_jobs": 2710,
+    "tests": 50,
+    "elapsed_seconds": 0.13,
+    "python": "3.11.15",
+    "setuptools": "84.2.1",
+    "pytest": "9.2.0",
+    "wheel": "0.45.1",
+    "network": false,
+    "scope": "Actual compiled production Python C/Lean bindings; mixed-event finite traces, TTL expiry and clock rollback counterexample; no runtime definition edits"
+  }
+}
