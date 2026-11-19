@@ -23,9 +23,21 @@ Credentials and grants remain on each device.
 Visible conversation is shared in the record; inspect it before publishing.
 
 For **Leanを再チェック**, prepare the exact `lean-toolchain` distribution and the pinned dependency sources/artifacts on that device.
+Git does not include `.lake/packages` in this fork.
+From the EthLib directory, run the repository's initial dependency preparation:
+
+```sh
+lake exe cache get
+```
+
+This host preparation loads the project Lake configuration and downloads dependencies and caches.
+It is separate from Meden's offline analysis and checks.
 Checks run offline and do not install these prerequisites.
 Missing tools or dependencies remain visible failures.
 Reading the history and checking locally require no inference approval.
+For an initial declaration graph, select `EthLib/Networking/Gossip/Parameters.lean`.
+The compiled import closure is limited to 32 files; a blank target selects too much for EthLib.
+Before dependency preparation, the explicit source-only graph can still show lexical references.
 In the TUI, `/work` lists the tasks, `/work ID` shows one, `/work check ID` rechecks and `/work resume ID` continues after fresh processor review.
 Press `/` at connection selection to open host commands.
 
