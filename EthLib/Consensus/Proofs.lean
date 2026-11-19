@@ -1,6 +1,11 @@
 module
 
 public import EthLib.Consensus.Proofs.Accessors
+public import EthLib.Consensus.Proofs.DepositRegistration
+public import EthLib.Consensus.Proofs.DepositRegistry
+public import EthLib.Consensus.Proofs.DepositSecurity
+public import EthLib.Consensus.Proofs.DepositAggregate
+public import EthLib.Consensus.Proofs.DepositAdaptive
 public import EthLib.Consensus.Proofs.Accessors.Draw
 public import EthLib.Consensus.Proofs.Accessors.DrawBounds
 public import EthLib.Consensus.Proofs.Accessors.DrawProbability

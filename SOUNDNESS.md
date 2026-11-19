@@ -617,6 +617,36 @@ The game requires a proof of possession that passes PopVerify, §3.3.3, under th
 Ethereum registers a validator key with a deposit signature instead, a signature on a message that holds the key, under the message tag and the deposit domain.
 The bound does not cover that form of proof.
 
+`DepositRegistration` (`Consensus/Proofs/DepositRegistration.lean`) relates the real deposit check to ordinary BLS verification on its SSZ signing root, with the deposit domain.
+Honest signatures pass that check.
+Equal signing roots for deposits with different public keys, withdrawal credentials or amounts yield a concrete SHA-256 collision; equality across different domains does too.
+These are collision witnesses, not unconditional inequalities of digests.
+`Registered` (`Consensus/Proofs/DepositRegistry.lean`) retains an accepted deposit signature for each registry key along finite successful deposit-processing traces from an empty registry.
+The proofs call the actual `processDeposit`, `applyDeposit` and `applyPendingDeposit` operations and their folds.
+Known-key top-ups need no new signature, and an Electra registration may start with zero credited balance.
+These traces do not cover every beacon-state transition or prove the origin of a light-client committee.
+
+`Forgery.advantage_le_coCdhAdvantage` (`Consensus/Proofs/DepositSecurity.lean`) bounds a fresh deposit-signature forgery under one honest key by a named existing co-CDH solver.
+The adversary chooses the configuration, credentials and amount, while the game supplies the honest key.
+The BLS message hash is a random oracle and the SSZ hash remains concrete SHA-256.
+The bound counts all BLS hash calls, including signing and final verification; `hashCallBound_iff` proves that the reduction preserves that count.
+`nonzeroAdvantage_le_coCdhAdvantage` also accounts for drawing the honest key uniformly from nonzero scalars.
+
+`Aggregate.extractAggregate_eq_of_registrations` (`Consensus/Proofs/DepositAggregate.lean`) extracts the honest share of an accepted aggregate from the other keys' actual deposit signatures.
+Each other registration root must hash to a specified known nonzero multiple of the challenge, and the honest key's multiplicity must be nonzero modulo the scalar order.
+This is the algebraic extraction step with those explicit hypotheses.
+`Adaptive.prEvent_verified_ready_le_solver` (`Consensus/Proofs/DepositAdaptive.lean`) uses one ordinary byte-root cache for adaptive hash queries, honest signing and deposit verification.
+An immutable role mask marks the inputs programmed as multiples of the challenge.
+The cache retains each first answer, coefficient and position through every later adaptive query, including queries before a deposit's preimage is disclosed.
+For a nonzero challenge, distributional projection agrees with the real shared oracle until a masked signing request.
+The solver bound retains an explicit event: a suitable mask, nonzero registration coefficients and no masked signing request.
+On that event, the actual deposit and byte aggregate checks imply extraction, without assumed pointwise hash equations.
+The theorem preserves the complete signing history and hash-call count, including repeated and final verification queries.
+A separate theorem characterizes when a suitable mask exists for a fixed transcript; that existence is not a causal selection algorithm.
+No theorem yet supplies a causal mask distribution's success probability, charges zero coefficients and forbidden signing-root overlap, or averages the solver inequality into a complete aggregate bound.
+Cross-domain root overlap yields a concrete SHA-256 collision, not a collision-resistance advantage bound.
+The independent key-tag oracle of `PopGame` does not discharge these remaining obligations.
+
 `Security.byteForgeAdvantage_le` (`Proofs/Bls/Security/Refinement.lean`) turns a forger on byte encodings into a named group-element forger with at least the same advantage.
 The byte forger receives a compressed key and compressed hash and signing answers, and returns arbitrary message and signature bytes.
 The game runs EthLib's G2 decompression, signature subgroup check and key validation before the pairing check.
@@ -1100,13 +1130,20 @@ The corresponding client and server step lemmas establish these conditions when 
 
 `clientStep_peerId` and `serverStep_peerId` prove that every returned completion reports the peer ID of certificate authentication; the client result also equals its expected ID.
 Completion checks the saved chain again, so these identity theorems hold even for caller-constructed states.
-That is certificate validation only: a caller-built state in a Finished phase can complete without any CertificateVerify check, so proof of key possession rests on the steps of a state reached from initialization, which no theorem yet covers.
+A caller-built state in a Finished phase can complete without any CertificateVerify check.
+`ClientTrace` and `ServerTrace` (`Networking/Proofs/Quic/Tls/Reachable.lean`) instead start at successful `clientStart` and `serverStart` calls and retain the exact successful steps.
+Their `completion_authenticated` theorems prove that each completion follows a CertificateVerify check for the same peer-chain bytes that the completion returns.
+The configuration stays fixed throughout the trace, as does the client's original expected peer ID.
+The signature projection proves that the earlier check used an offered and permitted P-256/SHA-256 scheme and the exact role-specific transcript.
+The completing call also checks the peer's Finished against its saved secret and actual transcript.
+The corresponding `no_completion_without_certificateVerify` theorems exclude completion without an earlier CertificateVerify in the trace.
+The traces cover accepted calls on complete reassembled messages; they do not enforce destruction of state after a rejected call.
 `completion_secrets_eq_of_inputs` proves that two completions with equal ECDHE secrets and equal hello and server-Finished transcript boundaries report equal schedule secrets.
 That is only the fact that the schedule is a function of those inputs; it does not prove that received key shares yield equal ECDHE secrets or that the peers saw one transcript.
 
 The cryptographic proofs (`Networking/Proofs/Quic/Tls/Crypto.lean`) prove agreement of honest X25519 exchanges, rejection of all-zero X25519 output, and verification of a generated P-256 CertificateVerify under the matching certificate key.
 No theorem proves P-256 ECDHE agreement here, handshake unforgeability or constant-time execution.
-The step theorems do not establish a complete invariant over every state reachable from initialization.
+The initialized trace theorems do not prove handshake unforgeability, fresh or secret ephemeral keys, transport or reassembly authenticity, or agreement of independently run peers.
 The Python tests use independently signed libp2p certificates with known private keys and check both groups, both suites and retries against independent shared-secret, signature, HKDF and HMAC calculations.
 They also check malformed negotiation, signatures, Finished values and post-handshake messages.
 
@@ -2650,6 +2687,15 @@ A published message goes only to explicit peers and to peers not below the publi
 With flood publishing, a message not in the seen cache goes to every such peer of the mesh and of the topic.
 `publish_receiveRpc` proves that a message this node published is not forwarded or delivered again within the lifetime of the seen cache.
 It holds when only received RPCs come after the publish, and the last of them uses the parameters and the message ID function of the publish.
+
+`Trace.emits_once` and `Trace.publish_once` (`Networking/Proofs/Gossip/Trace.lean`) cover arbitrary finite mixtures of `receiveRpc`, `heartbeat`, `join`, `leave` and `publish`.
+They call the actual operations with one fixed parameter value and message-ID function.
+After forwarding, delivery or a fresh publish, the same ID cannot be forwarded or delivered again before its original seen-cache expiry.
+The event times must be nondecreasing, and the final event must be strictly before that expiry.
+Client choices, standing and validation may vary between events, and the initial router state is arbitrary.
+The claim excludes replies to IWANT: the message cache may still answer a requested ID.
+`heartbeat_seen_expired` states the exact expiry boundary; clock rollback is outside the monotonicity hypothesis.
+These theorems establish suppression, not network delivery liveness or reachable-state uniqueness of mesh and fanout peers.
 
 The exports `gossip_join`, `gossip_leave`, `gossip_publish` and `gossip_heartbeat` fix the choice among candidates to the first ones, in candidate order.
 `Select.first_lawful` proves that this choice is lawful.
@@ -6582,8 +6628,11 @@ The files named `Proofs.lean` are roots that gather the proofs of a domain, so t
 <!-- generated: vcvio-users -->
 - `EthLib/Consensus/Proofs/Accessors/`
 - `EthLib/Consensus/Proofs/DataAvailability/`
+- `EthLib/Consensus/Proofs/DepositAdaptive.lean`
+- `EthLib/Consensus/Proofs/DepositAggregate.lean`
 - `EthLib/Consensus/Proofs/DepositRandomOracle.lean`
 - `EthLib/Consensus/Proofs/DepositRandomOracleAccepted.lean`
+- `EthLib/Consensus/Proofs/DepositSecurity.lean`
 - `EthLib/Consensus/Proofs/Gossip/`
 - `EthLib/Consensus/Proofs/LightClient/`
 - `EthLib/Consensus/Proofs/PqKeys/`

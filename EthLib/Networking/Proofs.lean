@@ -32,6 +32,7 @@ public import EthLib.Networking.Proofs.Gossip.Router
 public import EthLib.Networking.Proofs.Gossip.Rpc
 public import EthLib.Networking.Proofs.Gossip.Subnet
 public import EthLib.Networking.Proofs.Gossip.Topic
+public import EthLib.Networking.Proofs.Gossip.Trace
 public import EthLib.Networking.Proofs.Gossip.Validation
 public import EthLib.Networking.Proofs.Libp2p.Mplex
 public import EthLib.Networking.Proofs.Libp2p.MplexSession
@@ -47,6 +48,7 @@ public import EthLib.Networking.Proofs.Quic.Tls
 public import EthLib.Networking.Proofs.Quic.Tls.Extensions
 public import EthLib.Networking.Proofs.Quic.Tls.Crypto
 public import EthLib.Networking.Proofs.Quic.Tls.Handshake
+public import EthLib.Networking.Proofs.Quic.Tls.Reachable
 public import EthLib.Networking.Proofs.Quic.Tls.Transcript
 public import EthLib.Networking.Proofs.Quic.Varint
 public import EthLib.Networking.Proofs.ReqResp.Bounds
