@@ -1,0 +1,268 @@
+{
+  "kind": "Meden host-guided initialized Gossip reachability contribution",
+  "provider": "hermes:ollama-cloud",
+  "model": "minimax-m3",
+  "scripted_inference": false,
+  "host_guided_candidate": true,
+  "local_inference": false,
+  "cold_install": false,
+  "native_project_verified": false,
+  "task": {
+    "id": "gossip_reachability",
+    "title": "Gossipsub reachable mesh and fanout uniqueness",
+    "requirement": "From the actual empty RouterState, every arbitrary finite mixture of the existing Trace.Event receive RPC, heartbeat, join, leave and publish operations preserves unique peers in every mesh and fanout. Require lawful selection only at events that select peers. Derive necessary candidate and peer-table invariants from initialization and actual updates; do not assume the desired property at intermediate states, wrap the router in deduplication, change runtime behavior or weaken the existing seen-cache theorems. Client choices, standing, validation and times may vary per event.",
+    "module": "EthLib.Networking.Proofs.Gossip.Reachability",
+    "theorems": [
+      "EthLib.Networking.Proofs.Gossip.Reachability.step_wellFormed",
+      "EthLib.Networking.Proofs.Gossip.Reachability.run_wellFormed",
+      "EthLib.Networking.Proofs.Gossip.Reachability.run_empty_mesh_nodup",
+      "EthLib.Networking.Proofs.Gossip.Reachability.run_empty_fanout_nodup"
+    ],
+    "next": "Review the exact hypotheses and the two mutation controls in .meden/evidence/gossip-reachability.json. On another PC, pull this branch, open the GUI and rerun the local Lean check. Mesh/fanout uniqueness from the actual empty state is proved; network/packet correspondence, liveness and scoring convergence remain separate obligations."
+  },
+  "files": [
+    {
+      "path": "EthLib/Networking/Proofs/Gossip/Reachability.lean",
+      "sha256": "1b2453383f3f80647a0df50914d0eaf21a6459dbf944eda8e8476463c702f86b"
+    },
+    {
+      "path": "EthLib/Networking/Proofs/Gossip/Trace.lean",
+      "sha256": "cb57027527a6eb8b94f370003debedbe834145e595d946eea6c40c5af3a9812f"
+    },
+    {
+      "path": "EthLib/Networking/Gossip/Router.lean",
+      "sha256": "d0a8bda1ce9d8092bb6bebddbd8f3b07882406925b014bf67c29d47a2fe55741"
+    },
+    {
+      "path": "SOUNDNESS.md",
+      "sha256": "f19427f9dc09d91ed70fb10fcee273c4cb8e242d3c61196553fd897d8e7e0d7f"
+    }
+  ],
+  "checks": {
+    "build": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "✔ [14512/14518] Built EthLib.Networking.Proofs.Gossip.Reachability (428ms)\n✔ [14514/14518] Built EthLib.Networking.Proofs (2.8s)\n✔ [14516/14518] Built EthLib.Proofs (3.5s)\nBuild completed successfully (14518 jobs).\n",
+      "stderr": ""
+    },
+    "decls": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "check-decls: 135707 declarations under EthLib, 0 findings, 0 in the baseline, 0 new, 0 stale\n",
+      "stderr": "ℹ [5/13] Replayed VCVio/leanhashing.static\ninfo: leanhashing: native backend disabled because 'third_party/mlkem-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [7/13] Replayed VCVio/leanmlkem.static\ninfo: leanmlkem: native backend disabled because 'third_party/mlkem-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [9/13] Replayed VCVio/leanmldsa.static\ninfo: leanmldsa: native backend disabled because 'third_party/mldsa-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [11/13] Replayed VCVio/leanfalcon.static\ninfo: leanfalcon: native backend disabled because 'third_party/c-fn-dsa' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\n"
+    },
+    "accessors": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "check-accessors: 547 modules, 0 sites in 0 entries, baseline 0 entries\n",
+      "stderr": "ℹ [5/13] Replayed VCVio/leanhashing.static\ninfo: leanhashing: native backend disabled because 'third_party/mlkem-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [7/13] Replayed VCVio/leanmlkem.static\ninfo: leanmlkem: native backend disabled because 'third_party/mlkem-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [9/13] Replayed VCVio/leanmldsa.static\ninfo: leanmldsa: native backend disabled because 'third_party/mldsa-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [11/13] Replayed VCVio/leanfalcon.static\ninfo: leanfalcon: native backend disabled because 'third_party/c-fn-dsa' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\n"
+    },
+    "theorems": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "check-theorems: 548 modules, 4 findings, 0 new, 0 stale\n",
+      "stderr": "ℹ [8/16] Replayed VCVio/leanhashing.static\ninfo: leanhashing: native backend disabled because 'third_party/mlkem-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [10/16] Replayed VCVio/leanmlkem.static\ninfo: leanmlkem: native backend disabled because 'third_party/mlkem-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [12/16] Replayed VCVio/leanmldsa.static\ninfo: leanmldsa: native backend disabled because 'third_party/mldsa-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [14/16] Replayed VCVio/leanfalcon.static\ninfo: leanfalcon: native backend disabled because 'third_party/c-fn-dsa' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\n"
+    },
+    "baseline": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "check-theorems-baseline: no entries added since def97ca2\n",
+      "stderr": ""
+    },
+    "layout": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "No layout findings.\n",
+      "stderr": ""
+    },
+    "soundness": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "",
+      "stderr": ""
+    },
+    "soundness-tests": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "SOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\n",
+      "stderr": "..................\n----------------------------------------------------------------------\nRan 18 tests in 0.070s\n\nOK\n"
+    }
+  },
+  "named_work_checks": {
+    "tls": {
+      "engine_sha256": "sha256:def1b7930aa6a599d5d127f0d48fced40687489d064b2c419f6141153152d428",
+      "requirement": "Every completed client/server handshake reachable from its actual initializer under fixed configuration and expected peer must have successfully checked the peer CertificateVerify and Finished for the corresponding saved peer chain and transcript. Preserve exact phase, message, identity and configuration linkage; do not assume the authentication conclusion.",
+      "theorems": [
+        "EthLib.Networking.Quic.Tls.Handshake.ClientTrace.completion_authenticated",
+        "EthLib.Networking.Quic.Tls.Handshake.ServerTrace.completion_authenticated",
+        "EthLib.Networking.Quic.Tls.Handshake.ClientTrace.no_completion_without_certificateVerify",
+        "EthLib.Networking.Quic.Tls.Handshake.ServerTrace.no_completion_without_certificateVerify"
+      ],
+      "inspection": "EthLib.Networking.Quic.Tls.Handshake.ClientTrace.completion_authenticated : ∀ {config : EthLib.Networking.Quic.Tls.Handshake.Config} {expected : ByteArray}\n  {observations : List EthLib.Networking.Quic.Tls.Handshake.Observation}\n  {state : EthLib.Networking.Quic.Tls.Handshake.State} {input : EthLib.Networking.Quic.Tls.Handshake.FlightMessage}\n  {step : EthLib.Networking.Quic.Tls.Handshake.Step} {result : EthLib.Networking.Quic.Tls.Handshake.Completion},\n  EthLib.Networking.Quic.Tls.Handshake.ClientTrace config expected observations state →\n    EthLib.Networking.Quic.Tls.Handshake.clientStep config expected state input = Except.ok step →\n      step.completion = some result →\n        EthLib.Networking.Quic.Tls.Handshake.ClientCertificateObserved config expected observations result.peerChain ∧\n          ∃ value,\n            EthLib.Networking.Quic.Tls.Handshake.readMessage EthLib.Networking.Quic.Tls.Handshake.Level.handshake\n                  input =\n                Except.ok (EthLib.Networking.Quic.Tls.Message.finished value) ∧\n              EthLib.Networking.Quic.Tls.Handshake.checkFinished true state value = Except.ok ()\nAxioms: #[propext, Classical.choice, Quot.sound]\nEthLib.Networking.Quic.Tls.Handshake.ServerTrace.completion_authenticated : ∀ {config : EthLib.Networking.Quic.Tls.Handshake.Config}\n  {observations : List EthLib.Networking.Quic.Tls.Handshake.Observation}\n  {state : EthLib.Networking.Quic.Tls.Handshake.State} {input : EthLib.Networking.Quic.Tls.Handshake.FlightMessage}\n  {step : EthLib.Networking.Quic.Tls.Handshake.Step} {result : EthLib.Networking.Quic.Tls.Handshake.Completion},\n  EthLib.Networking.Quic.Tls.Handshake.ServerTrace config observations state →\n    EthLib.Networking.Quic.Tls.Handshake.serverStep config state input = Except.ok step →\n      step.completion = some result →\n        EthLib.Networking.Quic.Tls.Handshake.ServerCertificateObserved config observations result.peerChain ∧\n          ∃ value,\n            EthLib.Networking.Quic.Tls.Handshake.readMessage EthLib.Networking.Quic.Tls.Handshake.Level.handshake\n                  input =\n                Except.ok (EthLib.Networking.Quic.Tls.Message.finished value) ∧\n              EthLib.Networking.Quic.Tls.Handshake.checkFinished false state value = Except.ok ()\nAxioms: #[propext, Classical.choice, Quot.sound]\nEthLib.Networking.Quic.Tls.Handshake.ClientTrace.no_completion_without_certificateVerify : ∀ {config : EthLib.Networking.Quic.Tls.Handshake.Config} {expected : ByteArray}\n  {observations : List EthLib.Networking.Quic.Tls.Handshake.Observation}\n  {state : EthLib.Networking.Quic.Tls.Handshake.State} {input : EthLib.Networking.Quic.Tls.Handshake.FlightMessage}\n  {step : EthLib.Networking.Quic.Tls.Handshake.Step} {result : EthLib.Networking.Quic.Tls.Handshake.Completion},\n  EthLib.Networking.Quic.Tls.Handshake.ClientTrace config expected observations state →\n    (∀ observation ∈ observations,\n        ∀ (algorithm : EthLib.Networking.Quic.Tls.Wire.CodePoint) (signature : ByteArray),\n          EthLib.Networking.Quic.Tls.Handshake.readMessage EthLib.Networking.Quic.Tls.Handshake.Level.handshake\n              observation.input ≠\n            Except.ok (EthLib.Networking.Quic.Tls.Message.certificateVerify algorithm signature)) →\n      step.completion = some result →\n        EthLib.Networking.Quic.Tls.Handshake.clientStep config expected state input ≠ Except.ok step\nAxioms: #[propext, Classical.choice, Quot.sound]\nEthLib.Networking.Quic.Tls.Handshake.ServerTrace.no_completion_without_certificateVerify : ∀ {config : EthLib.Networking.Quic.Tls.Handshake.Config}\n  {observations : List EthLib.Networking.Quic.Tls.Handshake.Observation}\n  {state : EthLib.Networking.Quic.Tls.Handshake.State} {input : EthLib.Networking.Quic.Tls.Handshake.FlightMessage}\n  {step : EthLib.Networking.Quic.Tls.Handshake.Step} {result : EthLib.Networking.Quic.Tls.Handshake.Completion},\n  EthLib.Networking.Quic.Tls.Handshake.ServerTrace config observations state →\n    (∀ observation ∈ observations,\n        ∀ (algorithm : EthLib.Networking.Quic.Tls.Wire.CodePoint) (signature : ByteArray),\n          EthLib.Networking.Quic.Tls.Handshake.readMessage EthLib.Networking.Quic.Tls.Handshake.Level.handshake\n              observation.input ≠\n            Except.ok (EthLib.Networking.Quic.Tls.Message.certificateVerify algorithm signature)) →\n      step.completion = some result →\n        EthLib.Networking.Quic.Tls.Handshake.serverStep config state input ≠ Except.ok step\nAxioms: #[propext, Classical.choice, Quot.sound]\nMEDEN_THEOREMS_CHECKED\n\n",
+      "source_revision": "sha256:c7b0bee3cec80eb99307aa5a84994e370434184af0940bd3f0c7a277c9dbb6a3",
+      "after_revision": "sha256:c7b0bee3cec80eb99307aa5a84994e370434184af0940bd3f0c7a277c9dbb6a3",
+      "module": "EthLib.Networking.Proofs.Quic.Tls.Reachable",
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "Build completed successfully (6493 jobs).\n",
+      "stderr": ""
+    },
+    "gossip": {
+      "engine_sha256": "sha256:def1b7930aa6a599d5d127f0d48fced40687489d064b2c419f6141153152d428",
+      "requirement": "With fixed relevant parameters and message-ID function, preserve unexpired seen entries across arbitrary finite mixes of receive RPC, heartbeat, join, leave and publish with nondecreasing timestamps. After forwarding/delivery or a fresh publish, forbid subsequent forwarding/delivery of that ID before the original TTL expiry. IWANT answers are a separate operation.",
+      "theorems": [
+        "EthLib.Networking.Proofs.Gossip.Trace.emits_once",
+        "EthLib.Networking.Proofs.Gossip.Trace.publish_once"
+      ],
+      "inspection": "EthLib.Networking.Proofs.Gossip.Trace.emits_once : ∀ (p : EthLib.Networking.Gossip.GossipsubParameters)\n  (msgId : EthLib.Networking.Gossip.Message → EthLib.Networking.Gossip.MessageId)\n  (first last : EthLib.Networking.Proofs.Gossip.Trace.Event)\n  (between : List EthLib.Networking.Proofs.Gossip.Trace.Event) (state : EthLib.Networking.Gossip.RouterState)\n  (id : EthLib.Networking.Gossip.MessageId),\n  EthLib.Networking.Proofs.Gossip.Trace.Emits msgId id\n      (EthLib.Networking.Proofs.Gossip.Trace.Event.step p msgId first state).snd →\n    List.Pairwise (fun a b => a.time ≤ b.time) (first :: between ++ [last]) →\n      last.time < first.time + p.seen_ttl * 1000 →\n        ¬EthLib.Networking.Proofs.Gossip.Trace.Emits msgId id\n            (EthLib.Networking.Proofs.Gossip.Trace.Event.step p msgId last\n                (EthLib.Networking.Proofs.Gossip.Trace.run p msgId\n                  (EthLib.Networking.Proofs.Gossip.Trace.Event.step p msgId first state).fst between)).snd\nAxioms: #[propext, Classical.choice, Quot.sound]\nEthLib.Networking.Proofs.Gossip.Trace.publish_once : ∀ (p : EthLib.Networking.Gossip.GossipsubParameters)\n  (msgId : EthLib.Networking.Gossip.Message → EthLib.Networking.Gossip.MessageId)\n  (choices : EthLib.Networking.Gossip.ClientChoices) (select : EthLib.Networking.Gossip.Select)\n  (standing : EthLib.Networking.Gossip.PeerId → EthLib.Networking.Gossip.Standing) (now : Nat)\n  (message : EthLib.Networking.Gossip.Message) (state : EthLib.Networking.Gossip.RouterState)\n  (between : List EthLib.Networking.Proofs.Gossip.Trace.Event) (last : EthLib.Networking.Proofs.Gossip.Trace.Event),\n  state.seen.contains now (p.seen_ttl * 1000) (msgId message) = false →\n    List.Pairwise (fun a b => a.time ≤ b.time) (between ++ [last]) →\n      last.time < now + p.seen_ttl * 1000 →\n        ¬EthLib.Networking.Proofs.Gossip.Trace.Emits msgId (msgId message)\n            (EthLib.Networking.Proofs.Gossip.Trace.Event.step p msgId last\n                (EthLib.Networking.Proofs.Gossip.Trace.run p msgId\n                  (EthLib.Networking.Gossip.publish p choices select standing msgId now message state).fst between)).snd\nAxioms: #[propext, Classical.choice, Quot.sound]\nMEDEN_THEOREMS_CHECKED\n\n",
+      "source_revision": "sha256:c7b0bee3cec80eb99307aa5a84994e370434184af0940bd3f0c7a277c9dbb6a3",
+      "after_revision": "sha256:c7b0bee3cec80eb99307aa5a84994e370434184af0940bd3f0c7a277c9dbb6a3",
+      "module": "EthLib.Networking.Proofs.Gossip.Trace",
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "Build completed successfully (2205 jobs).\n",
+      "stderr": ""
+    },
+    "bls": {
+      "engine_sha256": "sha256:def1b7930aa6a599d5d127f0d48fced40687489d064b2c419f6141153152d428",
+      "requirement": "Connect Ethereum actual deposit signing roots, domain and ordinary BLS verification to registry admission and security games. Preserve the signed public key, withdrawal credentials and amount and account for real hash/signing queries. Do not replace deposit signatures with independently assumed BLS proof-of-possession. State any remaining adaptive aggregate-security obligation explicitly.",
+      "theorems": [
+        "EthLib.Consensus.DepositRegistration.signingRoot_binding",
+        "EthLib.Consensus.DepositRegistration.registered_of_processDeposits_from_empty",
+        "EthLib.Consensus.DepositRegistration.Forgery.advantage_le_coCdhAdvantage",
+        "EthLib.Consensus.DepositRegistration.Forgery.nonzeroAdvantage_le_coCdhAdvantage",
+        "EthLib.Consensus.DepositRegistration.Aggregate.extractAggregate_eq_of_registrations",
+        "EthLib.Consensus.DepositRegistration.Adaptive.cachedHash_after_adaptive",
+        "EthLib.Consensus.DepositRegistration.Adaptive.prEvent_verified_ready_le_solver"
+      ],
+      "inspection": "EthLib.Consensus.DepositRegistration.signingRoot_binding : ∀ {config : EthLib.Consensus.Config} {first second : EthLib.Consensus.DepositData} {root : EthLib.Consensus.Root},\n  EthLib.Consensus.DepositRegistration.signingRoot config first = Except.ok root →\n    EthLib.Consensus.DepositRegistration.signingRoot config second = Except.ok root →\n      EthLib.Consensus.DepositRegistration.message first = EthLib.Consensus.DepositRegistration.message second ∨\n        ∃ left right, EthLib.Serialization.Ssz.MessageCollision left right\nAxioms: #[propext, Classical.choice, Quot.sound]\nEthLib.Consensus.DepositRegistration.registered_of_processDeposits_from_empty : ∀ {preset : EthLib.Consensus.Preset} {fork : EthLib.Base.Fork} {config : EthLib.Consensus.Config}\n  {state after : EthLib.Consensus.BeaconState preset fork} {before : fork < EthLib.Base.Fork.hegota}\n  {deposits : List EthLib.Consensus.Deposit},\n  state.validators.data = #[] →\n    List.foldlM (EthLib.Consensus.processDeposit config EthLib.Consensus.SignatureChecks.bls before) state deposits =\n        Except.ok after →\n      EthLib.Consensus.DepositRegistration.Registered config after\nAxioms: #[propext, Classical.choice, Quot.sound]\nEthLib.Consensus.DepositRegistration.Forgery.advantage_le_coCdhAdvantage : ∀ (adversary : EthLib.Consensus.DepositRegistration.Forgery.Adversary) {bound : ℕ},\n  0 < bound →\n    EthLib.Consensus.DepositRegistration.Forgery.HashCallBound adversary bound →\n      EthLib.Consensus.DepositRegistration.Forgery.advantage adversary ≤\n        ↑bound *\n          EthLib.Cryptography.Bls.Security.coCdhAdvantage EthLib.Cryptography.Bls.Security.Scalar\n            EthLib.Cryptography.Bls.Security.g1 EthLib.Cryptography.Bls.Security.g2\n            (EthLib.Cryptography.Bls.Security.reduction EthLib.Cryptography.Bls.Security.g2 adversary.toBls.toGroup\n              bound)\nAxioms: #[propext, Classical.choice, Quot.sound]\nEthLib.Consensus.DepositRegistration.Forgery.nonzeroAdvantage_le_coCdhAdvantage : ∀ (adversary : EthLib.Consensus.DepositRegistration.Forgery.Adversary) {bound : ℕ},\n  0 < bound →\n    EthLib.Consensus.DepositRegistration.Forgery.HashCallBound adversary bound →\n      EthLib.Consensus.DepositRegistration.Forgery.nonzeroAdvantage adversary ≤\n        ↑EthLib.Cryptography.Bls.Fr.modulus / ↑(EthLib.Cryptography.Bls.Fr.modulus - 1) *\n          (↑bound *\n            EthLib.Cryptography.Bls.Security.coCdhAdvantage EthLib.Cryptography.Bls.Security.Scalar\n              EthLib.Cryptography.Bls.Security.g1 EthLib.Cryptography.Bls.Security.g2\n              (EthLib.Cryptography.Bls.Security.reduction EthLib.Cryptography.Bls.Security.g2 adversary.toBls.toGroup\n                bound))\nAxioms: #[propext, Classical.choice, Quot.sound]\nEthLib.Consensus.DepositRegistration.Aggregate.extractAggregate_eq_of_registrations : ∀ (config : EthLib.Consensus.Config) (secret : EthLib.Cryptography.Bls.Security.Scalar)\n  (challenge : ↥EthLib.Cryptography.Bls.Security.G2Sub)\n  (registrations : ↥EthLib.Cryptography.Bls.Security.G1Sub → EthLib.Consensus.DepositData)\n  (scalars : ↥EthLib.Cryptography.Bls.Security.G1Sub → EthLib.Cryptography.Bls.Security.Scalar)\n  (keys : List ↥EthLib.Cryptography.Bls.Security.G1Sub) (signature : ByteArray),\n  (∀ key ∈ keys,\n      EthLib.Cryptography.Bls.Security.decodeKey (EthLib.Base.packBytes (registrations key).pubkey) = some key) →\n    (∀ key ∈ keys,\n        key ≠ secret • EthLib.Cryptography.Bls.Security.g1 →\n          scalars key ≠ 0 ∧\n            EthLib.Consensus.isValidDepositSignature config\n                (EthLib.Consensus.DepositRegistration.Forgery.oracleChecks\n                  { config := config, data := registrations key }.message (scalars key • challenge))\n                (registrations key).pubkey (registrations key).withdrawalCredentials (registrations key).amount\n                (registrations key).signature =\n              Except.ok true) →\n      ↑(List.count (secret • EthLib.Cryptography.Bls.Security.g1) keys) ≠ 0 →\n        EthLib.Cryptography.Bls.Security.byteFastAggregateVerify\n              (List.map EthLib.Cryptography.Bls.Security.G1Sub.encode keys).toArray signature challenge =\n            true →\n          EthLib.Cryptography.Bls.Security.Pop.extractAggregate (secret • EthLib.Cryptography.Bls.Security.g1) scalars\n              (List.map\n                (fun key =>\n                  (key,\n                    (EthLib.Cryptography.Bls.Security.decodeSignature\n                          (EthLib.Base.packBytes (registrations key).signature)).getD\n                      0))\n                keys)\n              ((EthLib.Cryptography.Bls.Security.decodeSignature signature).getD 0) =\n            secret • challenge\nAxioms: #[propext, Classical.choice, Quot.sound]\nEthLib.Consensus.DepositRegistration.Adaptive.cachedHash_after_adaptive : ∀ {α : Type} (base publicPoint challenge : ↥EthLib.Cryptography.Bls.Security.G2Sub)\n  (mask : EthLib.Consensus.DepositRegistration.Adaptive.Mask) (input : ByteArray)\n  {state : EthLib.Cryptography.Bls.Security.State EthLib.Cryptography.Bls.Security.Scalar ByteArray}\n  {hashed :\n    ↥EthLib.Cryptography.Bls.Security.G2Sub ×\n      EthLib.Cryptography.Bls.Security.State EthLib.Cryptography.Bls.Security.Scalar ByteArray},\n  hashed ∈ support (EthLib.Consensus.DepositRegistration.Adaptive.hash base challenge mask input state) →\n    ∀\n      (computation :\n        OracleComp (EthLib.Cryptography.Bls.Security.Spec ByteArray ↥EthLib.Cryptography.Bls.Security.G2Sub) α)\n      {result : α × EthLib.Cryptography.Bls.Security.State EthLib.Cryptography.Bls.Security.Scalar ByteArray},\n      result ∈\n          support\n            ((simulateQ (EthLib.Consensus.DepositRegistration.Adaptive.impl base publicPoint challenge mask)\n                  computation).run\n              hashed.2) →\n        EthLib.Consensus.DepositRegistration.Adaptive.cachedHash base challenge mask result.2 input = hashed.1\nAxioms: #[propext, Classical.choice, Quot.sound]\nEthLib.Consensus.DepositRegistration.Adaptive.prEvent_verified_ready_le_solver : ∀ (config : EthLib.Consensus.Config) (mask : EthLib.Consensus.DepositRegistration.Adaptive.Mask)\n  (adversary : EthLib.Consensus.DepositRegistration.Adaptive.Adversary)\n  (secret : EthLib.Cryptography.Bls.Security.Scalar) {challengeScalar : EthLib.Cryptography.Bls.Security.Scalar},\n  challengeScalar ≠ 0 →\n    Pr{let result ←\n            (simulateQ (EthLib.Cryptography.Bls.Security.impl EthLib.Cryptography.Bls.Security.g2 secret)\n                    (EthLib.Consensus.DepositRegistration.Adaptive.run config adversary\n                      (secret • EthLib.Cryptography.Bls.Security.g1))).run\n                EthLib.Cryptography.Bls.Security.State.init}[(EthLib.Consensus.DepositRegistration.Adaptive.Verified\n            config (secret • EthLib.Cryptography.Bls.Security.g1) result.1 fun input =>\n            EthLib.Consensus.DepositRegistration.Adaptive.scalarAt input result.2 •\n              EthLib.Cryptography.Bls.Security.g2) ∧\n          EthLib.Consensus.DepositRegistration.Adaptive.Ready config mask (secret • EthLib.Cryptography.Bls.Security.g1)\n              result.1 (EthLib.Consensus.DepositRegistration.Adaptive.projectState mask challengeScalar result.2) ∧\n            ¬EthLib.Consensus.DepositRegistration.Adaptive.Bad mask result.2] ≤\n      Pr{let guess ←\n            EthLib.Consensus.DepositRegistration.Adaptive.solverAt config mask adversary\n                (secret • EthLib.Cryptography.Bls.Security.g1) (secret • EthLib.Cryptography.Bls.Security.g2)\n                (challengeScalar •\n                  EthLib.Cryptography.Bls.Security.g2)}[guess =\n          secret • challengeScalar • EthLib.Cryptography.Bls.Security.g2]\nAxioms: #[propext, Classical.choice, Quot.sound]\nMEDEN_THEOREMS_CHECKED\n\n",
+      "source_revision": "sha256:c7b0bee3cec80eb99307aa5a84994e370434184af0940bd3f0c7a277c9dbb6a3",
+      "after_revision": "sha256:c7b0bee3cec80eb99307aa5a84994e370434184af0940bd3f0c7a277c9dbb6a3",
+      "module": "EthLib.Consensus.Proofs.DepositAdaptive",
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "Build completed successfully (8526 jobs).\n",
+      "stderr": ""
+    },
+    "gossip_invariants": {
+      "engine_sha256": "sha256:def1b7930aa6a599d5d127f0d48fced40687489d064b2c419f6141153152d428",
+      "requirement": "Prove universal helper lemmas for the reachable-state proof: a topic's candidate peers are unique when the peerTopics keys are unique; lookup in a fanout map returns unique peers when every stored entry has unique peers; applySubscription preserves uniqueness of peerTopics keys. Keep the original router operations and all three WellFormed conditions. This helper stage does not establish the full gossip_reachability trace requirement.",
+      "theorems": [
+        "EthLib.Networking.Proofs.Gossip.Reachability.fanout_nodup_of_entries",
+        "EthLib.Networking.Proofs.Gossip.Reachability.topicPeers_nodup",
+        "EthLib.Networking.Proofs.Gossip.Reachability.applySubscription_nodup"
+      ],
+      "inspection": "EthLib.Networking.Proofs.Gossip.Reachability.fanout_nodup_of_entries : ∀ {m : List (String × List EthLib.Networking.Gossip.PeerId)},\n  (∀ (entry : String × List EthLib.Networking.Gossip.PeerId), entry ∈ m → entry.snd.Nodup) →\n    ∀ (t : String), (EthLib.Networking.Gossip.peersOf m t).Nodup\nAxioms: #[propext, Classical.choice, Quot.sound]\nEthLib.Networking.Proofs.Gossip.Reachability.topicPeers_nodup : ∀ {s : EthLib.Networking.Gossip.RouterState},\n  (List.map Prod.fst s.peerTopics).Nodup → ∀ (t : String), (EthLib.Networking.Gossip.topicPeers s t).Nodup\nAxioms: #[propext, Classical.choice, Quot.sound]\nEthLib.Networking.Proofs.Gossip.Reachability.applySubscription_nodup : ∀ {peerTopics : List (EthLib.Networking.Gossip.PeerId × List String)} {src : EthLib.Networking.Gossip.PeerId}\n  (sub : EthLib.Networking.Gossip.SubOpts),\n  (List.map Prod.fst peerTopics).Nodup →\n    (List.map Prod.fst (EthLib.Networking.Gossip.applySubscription src peerTopics sub)).Nodup\nAxioms: #[propext, Classical.choice, Quot.sound]\nMEDEN_THEOREMS_CHECKED\n\n",
+      "source_revision": "sha256:c7b0bee3cec80eb99307aa5a84994e370434184af0940bd3f0c7a277c9dbb6a3",
+      "after_revision": "sha256:c7b0bee3cec80eb99307aa5a84994e370434184af0940bd3f0c7a277c9dbb6a3",
+      "module": "EthLib.Networking.Proofs.Gossip.Reachability",
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "Build completed successfully (2207 jobs).\n",
+      "stderr": ""
+    },
+    "gossip_receive": {
+      "engine_sha256": "sha256:def1b7930aa6a599d5d127f0d48fced40687489d064b2c419f6141153152d428",
+      "requirement": "For arbitrary router state satisfying all three Reachability.WellFormed conditions, the actual receiveRpc preserves WellFormed for every RPC, parameters, source, validation, standing and time. Derive peer-table uniqueness through the subscription fold and prove fanout is unchanged; reuse the existing universal mesh theorem. No runtime changes, new assumptions of the desired conclusion, sorry, new axioms or weakening of old proofs. This is one operation needed by the unchanged full gossip_reachability work item.",
+      "theorems": [
+        "EthLib.Networking.Proofs.Gossip.Reachability.receiveRpc_wellFormed"
+      ],
+      "inspection": "EthLib.Networking.Proofs.Gossip.Reachability.receiveRpc_wellFormed : ∀ (p : EthLib.Networking.Gossip.GossipsubParameters) (backoffMs pruneBackoffMs : Nat)\n  (standing : EthLib.Networking.Gossip.PeerId → EthLib.Networking.Gossip.Standing)\n  (msgId : EthLib.Networking.Gossip.Message → EthLib.Networking.Gossip.MessageId)\n  (validate : EthLib.Networking.Gossip.Message → EthLib.Networking.Gossip.ValidationResult) (now : Nat)\n  (src : EthLib.Networking.Gossip.PeerId) (rpc : EthLib.Networking.Gossip.Rpc)\n  (s : EthLib.Networking.Gossip.RouterState),\n  EthLib.Networking.Proofs.Gossip.Reachability.WellFormed s →\n    EthLib.Networking.Proofs.Gossip.Reachability.WellFormed\n      (EthLib.Networking.Gossip.receiveRpc p backoffMs pruneBackoffMs standing msgId validate now src rpc s).fst\nAxioms: #[propext, Classical.choice, Quot.sound]\nMEDEN_THEOREMS_CHECKED\n\n",
+      "source_revision": "sha256:c7b0bee3cec80eb99307aa5a84994e370434184af0940bd3f0c7a277c9dbb6a3",
+      "after_revision": "sha256:c7b0bee3cec80eb99307aa5a84994e370434184af0940bd3f0c7a277c9dbb6a3",
+      "module": "EthLib.Networking.Proofs.Gossip.Reachability",
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "Build completed successfully (2207 jobs).\n",
+      "stderr": ""
+    },
+    "gossip_reachability": {
+      "engine_sha256": "sha256:def1b7930aa6a599d5d127f0d48fced40687489d064b2c419f6141153152d428",
+      "requirement": "From the actual empty RouterState, every arbitrary finite mixture of the existing Trace.Event receive RPC, heartbeat, join, leave and publish operations preserves unique peers in every mesh and fanout. Require lawful selection only at events that select peers. Derive necessary candidate and peer-table invariants from initialization and actual updates; do not assume the desired property at intermediate states, wrap the router in deduplication, change runtime behavior or weaken the existing seen-cache theorems. Client choices, standing, validation and times may vary per event.",
+      "theorems": [
+        "EthLib.Networking.Proofs.Gossip.Reachability.step_wellFormed",
+        "EthLib.Networking.Proofs.Gossip.Reachability.run_wellFormed",
+        "EthLib.Networking.Proofs.Gossip.Reachability.run_empty_mesh_nodup",
+        "EthLib.Networking.Proofs.Gossip.Reachability.run_empty_fanout_nodup"
+      ],
+      "inspection": "EthLib.Networking.Proofs.Gossip.Reachability.step_wellFormed : ∀ (p : EthLib.Networking.Gossip.GossipsubParameters)\n  (msgId : EthLib.Networking.Gossip.Message → EthLib.Networking.Gossip.MessageId)\n  (event : EthLib.Networking.Proofs.Gossip.Trace.Event) (s : EthLib.Networking.Gossip.RouterState),\n  EthLib.Networking.Proofs.Gossip.Reachability.WellFormed s →\n    EthLib.Networking.Proofs.Gossip.Reachability.LawfulSelections event →\n      EthLib.Networking.Proofs.Gossip.Reachability.WellFormed\n        (EthLib.Networking.Proofs.Gossip.Trace.Event.step p msgId event s).fst\nAxioms: #[propext, Classical.choice, Quot.sound]\nEthLib.Networking.Proofs.Gossip.Reachability.run_wellFormed : ∀ (p : EthLib.Networking.Gossip.GossipsubParameters)\n  (msgId : EthLib.Networking.Gossip.Message → EthLib.Networking.Gossip.MessageId)\n  (s : EthLib.Networking.Gossip.RouterState) (events : List EthLib.Networking.Proofs.Gossip.Trace.Event),\n  EthLib.Networking.Proofs.Gossip.Reachability.WellFormed s →\n    (∀ (event : EthLib.Networking.Proofs.Gossip.Trace.Event),\n        event ∈ events → EthLib.Networking.Proofs.Gossip.Reachability.LawfulSelections event) →\n      EthLib.Networking.Proofs.Gossip.Reachability.WellFormed\n        (EthLib.Networking.Proofs.Gossip.Trace.run p msgId s events)\nAxioms: #[propext, Classical.choice, Quot.sound]\nEthLib.Networking.Proofs.Gossip.Reachability.run_empty_mesh_nodup : ∀ (p : EthLib.Networking.Gossip.GossipsubParameters)\n  (msgId : EthLib.Networking.Gossip.Message → EthLib.Networking.Gossip.MessageId)\n  (events : List EthLib.Networking.Proofs.Gossip.Trace.Event),\n  (∀ (event : EthLib.Networking.Proofs.Gossip.Trace.Event),\n      event ∈ events → EthLib.Networking.Proofs.Gossip.Reachability.LawfulSelections event) →\n    ∀ (topic : String),\n      (EthLib.Networking.Gossip.peersOf (EthLib.Networking.Proofs.Gossip.Trace.run p msgId { } events).mesh topic).Nodup\nAxioms: #[propext, Classical.choice, Quot.sound]\nEthLib.Networking.Proofs.Gossip.Reachability.run_empty_fanout_nodup : ∀ (p : EthLib.Networking.Gossip.GossipsubParameters)\n  (msgId : EthLib.Networking.Gossip.Message → EthLib.Networking.Gossip.MessageId)\n  (events : List EthLib.Networking.Proofs.Gossip.Trace.Event),\n  (∀ (event : EthLib.Networking.Proofs.Gossip.Trace.Event),\n      event ∈ events → EthLib.Networking.Proofs.Gossip.Reachability.LawfulSelections event) →\n    ∀ (topic : String),\n      (EthLib.Networking.Gossip.peersOf (EthLib.Networking.Proofs.Gossip.Trace.run p msgId { } events).fanout\n          topic).Nodup\nAxioms: #[propext, Classical.choice, Quot.sound]\nMEDEN_THEOREMS_CHECKED\n\n",
+      "source_revision": "sha256:c7b0bee3cec80eb99307aa5a84994e370434184af0940bd3f0c7a277c9dbb6a3",
+      "after_revision": "sha256:c7b0bee3cec80eb99307aa5a84994e370434184af0940bd3f0c7a277c9dbb6a3",
+      "module": "EthLib.Networking.Proofs.Gossip.Reachability",
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "Build completed successfully (2207 jobs).\n",
+      "stderr": ""
+    }
+  },
+  "mutations": {
+    "baseline": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "✔ [2184/2207] Built EthLib.Networking.Gossip.Router (564ms)\n✔ [2186/2207] Built EthLib.Networking.Gossip.Router:c.o (3.1s)\n✔ [2187/2207] Built EthLib.Networking.Gossip.Router:dynlib (126ms)\n✔ [2188/2207] Built EthLib.Networking (184ms)\n✔ [2191/2207] Built EthLib.Networking:dynlib (143ms)\n✔ [2192/2207] Built EthLib (412ms)\n✔ [2195/2207] Built EthLib:shared (985ms)\n✔ [2198/2207] Built EthLib.Networking.Proofs.Gossip.Router (804ms)\n✔ [2200/2207] Built EthLib.Networking.Proofs.Gossip.Membership (316ms)\n✔ [2202/2207] Built EthLib.Networking.Proofs.Gossip.Heartbeat (973ms)\n✔ [2204/2207] Built EthLib.Networking.Proofs.Gossip.Trace (331ms)\n✔ [2206/2207] Built EthLib.Networking.Proofs.Gossip.Reachability (349ms)\nBuild completed successfully (2207 jobs).\n",
+      "stderr": ""
+    },
+    "mutations": [
+      {
+        "name": "subscription",
+        "before": "  (src, new) :: peerTopics.filter (·.1 != src)",
+        "after": "  (src, new) :: peerTopics",
+        "faulty_source_sha256": "a10dcc1266449605fe7d79d756a09001ba492b66e1ea3e3c2aa4575875f3cda1",
+        "unchanged_proof_sha256": "1b2453383f3f80647a0df50914d0eaf21a6459dbf944eda8e8476463c702f86b",
+        "old_conditional_proofs": {
+          "success": true,
+          "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+          "stdout": "✔ [2184/2205] Built EthLib.Networking.Gossip.Router (568ms)\n✔ [2186/2205] Built EthLib.Networking.Gossip.Router:c.o (3.1s)\n✔ [2187/2205] Built EthLib.Networking.Gossip.Router:dynlib (133ms)\n✔ [2188/2205] Built EthLib.Networking (171ms)\n✔ [2191/2205] Built EthLib.Networking:dynlib (122ms)\n✔ [2192/2205] Built EthLib (273ms)\n✔ [2195/2205] Built EthLib:shared (974ms)\n✔ [2198/2205] Built EthLib.Networking.Proofs.Gossip.Router (774ms)\n✔ [2200/2205] Built EthLib.Networking.Proofs.Gossip.Membership (322ms)\n✔ [2202/2205] Built EthLib.Networking.Proofs.Gossip.Heartbeat (960ms)\n✔ [2204/2205] Built EthLib.Networking.Proofs.Gossip.Trace (327ms)\nBuild completed successfully (2205 jobs).\n",
+          "stderr": ""
+        },
+        "new_initialized_proof_module": {
+          "success": false,
+          "termination": "Exited(ExitStatus(unix_wait_status(256)))",
+          "stdout": "✖ [2206/2207] Building EthLib.Networking.Proofs.Gossip.Reachability (327ms)\ntrace: .> LEAN_PATH=/workspace/.lake/packages/Cli/.lake/build/lib/lean:/workspace/.lake/packages/cslib/.lake/build/lib/lean:/workspace/.lake/packages/batteries/.lake/build/lib/lean:/workspace/.lake/packages/Qq/.lake/build/lib/lean:/workspace/.lake/packages/aesop/.lake/build/lib/lean:/workspace/.lake/packages/proofwidgets/.lake/build/lib/lean:/workspace/.lake/packages/importGraph/.lake/build/lib/lean:/workspace/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/workspace/.lake/packages/plausible/.lake/build/lib/lean:/workspace/.lake/packages/PolyFun/.lake/build/lib/lean:/workspace/.lake/packages/QuantumFoundations/.lake/build/lib/lean:/workspace/.lake/packages/mathlib/.lake/build/lib/lean:/workspace/.lake/packages/VCVio/.lake/build/lib/lean:/workspace/.lake/build/lib/lean /analysis/lean/bin/lean /workspace/EthLib/Networking/Proofs/Gossip/Reachability.lean -o /workspace/.lake/build/lib/lean/EthLib/Networking/Proofs/Gossip/Reachability.olean -i /workspace/.lake/build/lib/lean/EthLib/Networking/Proofs/Gossip/Reachability.ilean -c /workspace/.lake/build/ir/EthLib/Networking/Proofs/Gossip/Reachability.c --setup /workspace/.lake/build/ir/EthLib/Networking/Proofs/Gossip/Reachability.setup.json --json\nerror: EthLib/Networking/Proofs/Gossip/Reachability.lean:97:38: Application type mismatch: The argument\n  hentry\nhas type\n  entry ∈ peerTopics\nbut is expected to have type\n  ?m.65 ∈ List.filter ?m.63 ?m.64\nin the application\n  List.mem_filter.mp hentry\nerror: EthLib/Networking/Proofs/Gossip/Reachability.lean:99:56: Application type mismatch: The argument\n  List.filter_sublist\nhas type\n  (List.filter ?m.86 ?m.87).Sublist ?m.87\nbut is expected to have type\n  peerTopics.Sublist ?m.84\nin the application\n  List.Sublist.map Prod.fst List.filter_sublist\nSome required targets logged failures:\n- EthLib.Networking.Proofs.Gossip.Reachability\n",
+          "stderr": "error: build failed\n"
+        }
+      },
+      {
+        "name": "fanout",
+        "before": "q ∉ s.explicit && !(standing q).belowPublish && q ∉ kept",
+        "after": "q ∉ s.explicit && !(standing q).belowPublish",
+        "faulty_source_sha256": "814ee62c1d6edf74a027f86448f86864aae3334a3af18779a6efc087e2a20d51",
+        "unchanged_proof_sha256": "1b2453383f3f80647a0df50914d0eaf21a6459dbf944eda8e8476463c702f86b",
+        "old_conditional_proofs": {
+          "success": true,
+          "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+          "stdout": "✔ [2184/2205] Built EthLib.Networking.Gossip.Router (573ms)\n✔ [2186/2205] Built EthLib.Networking.Gossip.Router:c.o (3.1s)\n✔ [2187/2205] Built EthLib.Networking.Gossip.Router:dynlib (127ms)\n✔ [2188/2205] Built EthLib.Networking (185ms)\n✔ [2191/2205] Built EthLib.Networking:dynlib (125ms)\n✔ [2192/2205] Built EthLib (276ms)\n✔ [2195/2205] Built EthLib:shared (976ms)\n✔ [2198/2205] Built EthLib.Networking.Proofs.Gossip.Router (750ms)\n✔ [2200/2205] Built EthLib.Networking.Proofs.Gossip.Membership (339ms)\n✔ [2202/2205] Built EthLib.Networking.Proofs.Gossip.Heartbeat (949ms)\n✔ [2204/2205] Built EthLib.Networking.Proofs.Gossip.Trace (333ms)\nBuild completed successfully (2205 jobs).\n",
+          "stderr": ""
+        },
+        "new_initialized_proof_module": {
+          "success": false,
+          "termination": "Exited(ExitStatus(unix_wait_status(256)))",
+          "stdout": "✖ [2206/2207] Building EthLib.Networking.Proofs.Gossip.Reachability (358ms)\ntrace: .> LEAN_PATH=/workspace/.lake/packages/Cli/.lake/build/lib/lean:/workspace/.lake/packages/cslib/.lake/build/lib/lean:/workspace/.lake/packages/batteries/.lake/build/lib/lean:/workspace/.lake/packages/Qq/.lake/build/lib/lean:/workspace/.lake/packages/aesop/.lake/build/lib/lean:/workspace/.lake/packages/proofwidgets/.lake/build/lib/lean:/workspace/.lake/packages/importGraph/.lake/build/lib/lean:/workspace/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/workspace/.lake/packages/plausible/.lake/build/lib/lean:/workspace/.lake/packages/PolyFun/.lake/build/lib/lean:/workspace/.lake/packages/QuantumFoundations/.lake/build/lib/lean:/workspace/.lake/packages/mathlib/.lake/build/lib/lean:/workspace/.lake/packages/VCVio/.lake/build/lib/lean:/workspace/.lake/build/lib/lean /analysis/lean/bin/lean /workspace/EthLib/Networking/Proofs/Gossip/Reachability.lean -o /workspace/.lake/build/lib/lean/EthLib/Networking/Proofs/Gossip/Reachability.olean -i /workspace/.lake/build/lib/lean/EthLib/Networking/Proofs/Gossip/Reachability.ilean -c /workspace/.lake/build/ir/EthLib/Networking/Proofs/Gossip/Reachability.c --setup /workspace/.lake/build/ir/EthLib/Networking/Proofs/Gossip/Reachability.setup.json --json\nerror: EthLib/Networking/Proofs/Gossip/Reachability.lean:271:4: unsolved goals\ncase pos\np : GossipsubParameters\nsel : Select\nstanding : PeerId → Standing\nnow : Nat\ns : RouterState\nhsel : sel.Lawful\nhs : ∀ (entry : String × List PeerId), entry ∈ s.fanout → entry.snd.Nodup\nentry : String × List PeerId\ntopic : String\npeers : List PeerId\nhmem : (topic, peers) ∈ s.fanout\nexpired : ¬lastPublished s topic + p.fanout_ttl * 1000 < now\nkept : List PeerId := List.filter (fun q => !(standing q).belowPublish) peers\nhkept : kept.Nodup\nsmall : (List.filter (fun q => !(standing q).belowPublish) peers).length < p.D\nhout :\n  some\n      (topic,\n        List.filter (fun q => !(standing q).belowPublish) peers ++\n          sel (p.D - (List.filter (fun q => !(standing q).belowPublish) peers).length)\n            (List.filter (fun q => decide ¬q ∈ s.explicit && !(standing q).belowPublish)\n                (topicPeers s topic)).eraseDups) =\n    some entry\nheq :\n  (topic,\n      List.filter (fun q => !(standing q).belowPublish) peers ++\n        sel (p.D - (List.filter (fun q => !(standing q).belowPublish) peers).length)\n          (List.filter (fun q => decide ¬q ∈ s.explicit && !(standing q).belowPublish)\n              (topicPeers s topic)).eraseDups) =\n    entry\na : PeerId\nha : a ∈ List.filter (fun q => !(standing q).belowPublish) peers\nhb :\n  a ∈\n    sel (p.D - (List.filter (fun q => !(standing q).belowPublish) peers).length)\n      (List.filter (fun q => decide ¬q ∈ s.explicit && !(standing q).belowPublish) (topicPeers s topic)).eraseDups\ncandidate :\n  a ∈ (List.filter (fun q => decide ¬q ∈ s.explicit && !(standing q).belowPublish) (topicPeers s topic)).eraseDups\neligible : ¬a ∈ s.explicit ∧ (standing a).belowPublish = false\n⊢ False\nwarning: EthLib/Networking/Proofs/Gossip/Reachability.lean:282:12: This simp argument is unused:\n  ha\n\nHint: Omit it from the simp argument list.\n  [apply] simp at eligible\n\nNote: This linter can be disabled with `set_option linter.unusedSimpArgs false`\nSome required targets logged failures:\n- EthLib.Networking.Proofs.Gossip.Reachability\n",
+          "stderr": "error: build failed\n"
+        }
+      }
+    ],
+    "restored": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "✔ [2184/2207] Built EthLib.Networking.Gossip.Router (552ms)\n✔ [2186/2207] Built EthLib.Networking.Gossip.Router:c.o (3.1s)\n✔ [2187/2207] Built EthLib.Networking.Gossip.Router:dynlib (130ms)\n✔ [2188/2207] Built EthLib.Networking (173ms)\n✔ [2191/2207] Built EthLib.Networking:dynlib (118ms)\n✔ [2192/2207] Built EthLib (294ms)\n✔ [2195/2207] Built EthLib:shared (991ms)\n✔ [2198/2207] Built EthLib.Networking.Proofs.Gossip.Router (767ms)\n✔ [2200/2207] Built EthLib.Networking.Proofs.Gossip.Membership (285ms)\n✔ [2202/2207] Built EthLib.Networking.Proofs.Gossip.Heartbeat (967ms)\n✔ [2204/2207] Built EthLib.Networking.Proofs.Gossip.Trace (327ms)\n✔ [2206/2207] Built EthLib.Networking.Proofs.Gossip.Reachability (349ms)\nBuild completed successfully (2207 jobs).\n",
+      "stderr": ""
+    },
+    "original_source_sha256": "d0a8bda1ce9d8092bb6bebddbd8f3b07882406925b014bf67c29d47a2fe55741",
+    "proof_sha256": "1b2453383f3f80647a0df50914d0eaf21a6459dbf944eda8e8476463c702f86b",
+    "independent_regular_file_copy": true
+  },
+  "scope": "Actual empty RouterState; arbitrary finite Trace.Event mixtures of receive RPC, join, leave, publish and heartbeat. One arbitrary fixed parameter set and message-ID function; client choices, standing, validation and time vary per event. Selection lawfulness is required at heartbeat, join and publish event kinds, with no selection assumption for receive or leave. Peer-table/candidate/fanout invariants are derived through actual operations; no intermediate-state invariant premise or runtime wrapper.",
+  "limits": [
+    "The theorem concerns the pure router and Trace.Event model, not packet/reassembly or real-network correspondence.",
+    "It does not establish network liveness, scoring convergence or cryptographic authenticity.",
+    "Meden native Rust project verification is separate and remains unaccepted/unverified.",
+    "Optional VCVio native crypto backends remain uninstalled and unvalidated.",
+    "Stored checks are historical observations; recheck locally after cloning."
+  ],
+  "reproduce": [
+    "meden work --workspace EthLib check gossip_reachability",
+    "meden lake --workspace EthLib --lean /installed/lean4.36.0 --timeout 1800 -- build --wfail",
+    "meden lake --workspace EthLib --lean /installed/lean4.36.0 --timeout 1800 -- exe check-decls"
+  ]
+}

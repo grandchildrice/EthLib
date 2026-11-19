@@ -2682,7 +2682,7 @@ If no mesh holds a peer twice before a leave, none does after it (`leave_mesh_no
 `join_mesh_nodup` proves the same for a join with a lawful choice.
 It also needs the fanout of the topic, and the peers that announced it, to list each peer once.
 With `receiveRpc_mesh_nodup` and `heartbeat_mesh_nodup`, every step of the router thus keeps the meshes free of a repeated peer, under the needs of each theorem.
-No theorem states that those two lists of a join repeat no peer in the states that the router reaches.
+The initialized trace theorem below derives the distinct fanout and topic candidates that a join needs.
 A published message goes only to explicit peers and to peers not below the publish threshold.
 With flood publishing, a message not in the seen cache goes to every such peer of the mesh and of the topic.
 `publish_receiveRpc` proves that a message this node published is not forwarded or delivered again within the lifetime of the seen cache.
@@ -2700,7 +2700,14 @@ These theorems establish suppression, not network delivery liveness or reachable
 `Reachability.WellFormed` (`Networking/Proofs/Gossip/Reachability.lean`) requires distinct peer keys in `peerTopics`, distinct peers in each fanout entry and distinct peers in every mesh lookup.
 `topicPeers_nodup` derives distinct topic candidates from the peer keys, and `fanout_nodup_of_entries` derives distinct lookup peers from the fanout entries.
 `applySubscription_nodup` preserves distinct peer keys through a subscription change.
-Preservation by all router operations and finite event traces from initialization remains open.
+`receiveRpc_wellFormed`, `join_wellFormed`, `leave_wellFormed`, `publish_wellFormed` and `heartbeat_wellFormed` preserve all three conditions through the actual router operations.
+`LawfulSelections` requires a lawful selector at heartbeat, join and publish events; receive and leave events need no selection assumption.
+`step_wellFormed` and `run_wellFormed` propagate the invariant through the actual `Trace.Event.step` and every finite `Trace.run`.
+`run_empty_mesh_nodup` and `run_empty_fanout_nodup` start with the actual empty `RouterState` and derive distinct peers in every mesh and fanout lookup.
+They assume no invariant on intermediate states.
+The parameter set and message-ID function stay fixed, while client choices, standing, validation and event times may vary between events.
+Unlike seen-cache suppression, this uniqueness result needs no monotonicity assumption on event times.
+It does not establish network delivery liveness, transport correspondence or scoring convergence.
 
 The exports `gossip_join`, `gossip_leave`, `gossip_publish` and `gossip_heartbeat` fix the choice among candidates to the first ones, in candidate order.
 `Select.first_lawful` proves that this choice is lawful.
