@@ -16,7 +16,7 @@ Finished is accepted exactly when it matches the saved transcript.
 
 CertificateVerify also needs an offered scheme and an authenticated certificate.
 
-No theorem here ties a completion to an earlier CertificateVerify over every reachable state.
+`Reachable.lean` ties completion to an earlier CertificateVerify along initialized accepted-call traces.
 -/
 
 @[expose] public section

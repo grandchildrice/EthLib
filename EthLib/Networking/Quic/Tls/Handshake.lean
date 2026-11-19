@@ -179,7 +179,7 @@ structure State where
 
 On a state reached from initialization, the peer's CertificateVerify and Finished were checked.
 
-No theorem yet proves that for every reachable state. -/
+`Proofs.Quic.Tls.Reachable` proves this for finite initialized accepted-call traces. -/
 structure Completion where
   peerId : ByteArray
   peerChain : List ByteArray
