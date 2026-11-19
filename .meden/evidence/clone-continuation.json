@@ -1,0 +1,152 @@
+{
+  "kind": "Actual remote-clone GUI continuation",
+  "source_commit": "0e135029c8ceba5718e8053f167f527e49cbd338",
+  "binary_sha256": "878659aefb266b3ba17c38dff1bc6c53fb7ee106cfd1051fea76a69db6b14aaa",
+  "clone_source": "https://github.com/grandchildrice/EthLib.git",
+  "branch": "meden/assurance-workspace",
+  "separate_checkout": true,
+  "separate_host_data_directory": true,
+  "separate_physical_machine": false,
+  "cold_install": false,
+  "dependency_preparation": "Reused an independent ordinary-file copy of already installed pinned Lake packages/build resources. No cold-download validation.",
+  "before_check": {
+    "running": false,
+    "authorized": false,
+    "provider": null,
+    "portable_tasks": 6,
+    "overview": {
+      "state": "ready",
+      "scanned": 2517,
+      "total": 2517,
+      "revision": "sha256:22c038561a248cddaa8445920ddb3f2ab0d259d3fd899591ec32be4cff72f399",
+      "error": null
+    },
+    "history_complete_visible": true,
+    "chat_chars": 102301,
+    "graph_heading": "ワークスペース全体の契約・証明",
+    "project_accepted": false,
+    "project_verified": false,
+    "latest_check": [
+      {
+        "success": true,
+        "source_revision": "sha256:c7b0bee3cec80eb99307aa5a84994e370434184af0940bd3f0c7a277c9dbb6a3",
+        "after_revision": "sha256:c7b0bee3cec80eb99307aa5a84994e370434184af0940bd3f0c7a277c9dbb6a3"
+      }
+    ]
+  },
+  "after_check": {
+    "running": false,
+    "authorized": false,
+    "provider": null,
+    "portable_tasks": 6,
+    "overview": {
+      "state": "ready",
+      "scanned": 2517,
+      "total": 2517,
+      "revision": "sha256:22c038561a248cddaa8445920ddb3f2ab0d259d3fd899591ec32be4cff72f399",
+      "error": null
+    },
+    "history_complete_visible": true,
+    "chat_chars": 102301,
+    "graph_heading": "ワークスペース全体の契約・証明",
+    "project_accepted": false,
+    "project_verified": false,
+    "latest_check": [
+      {
+        "success": true,
+        "source_revision": "sha256:f03ce675a527baf5ffb5bf18a50e89fead736101bae95adeaa2f6633b6164056",
+        "after_revision": "sha256:f03ce675a527baf5ffb5bf18a50e89fead736101bae95adeaa2f6633b6164056"
+      }
+    ]
+  },
+  "first_unapproved_restart": {
+    "running": false,
+    "authorized": false,
+    "provider": null,
+    "portable_tasks": 6,
+    "overview": {
+      "state": "ready",
+      "scanned": 2517,
+      "total": 2517,
+      "revision": "sha256:22c038561a248cddaa8445920ddb3f2ab0d259d3fd899591ec32be4cff72f399",
+      "error": null
+    },
+    "history_complete_visible": true,
+    "chat_chars": 102301,
+    "graph_heading": "ワークスペース全体の契約・証明",
+    "project_accepted": false,
+    "project_verified": false,
+    "latest_check": [
+      {
+        "success": true,
+        "source_revision": "sha256:f03ce675a527baf5ffb5bf18a50e89fead736101bae95adeaa2f6633b6164056",
+        "after_revision": "sha256:f03ce675a527baf5ffb5bf18a50e89fead736101bae95adeaa2f6633b6164056"
+      }
+    ]
+  },
+  "final_unapproved_restart": {
+    "running": false,
+    "authorized": false,
+    "provider": null,
+    "portable_tasks": 6,
+    "overview": {
+      "state": "ready",
+      "scanned": 2517,
+      "total": 2517,
+      "revision": "sha256:22c038561a248cddaa8445920ddb3f2ab0d259d3fd899591ec32be4cff72f399",
+      "error": null
+    },
+    "history_complete_visible": true,
+    "live_scope_reply_visible": true,
+    "chat_chars": 141234,
+    "graph_heading": "ワークスペース全体の契約・証明",
+    "project_accepted": false,
+    "project_verified": false,
+    "latest_check": [
+      {
+        "success": true,
+        "source_revision": "sha256:f03ce675a527baf5ffb5bf18a50e89fead736101bae95adeaa2f6633b6164056",
+        "after_revision": "sha256:f03ce675a527baf5ffb5bf18a50e89fead736101bae95adeaa2f6633b6164056"
+      }
+    ]
+  },
+  "fresh_local_lean_check": {
+    "engine_sha256": "sha256:def1b7930aa6a599d5d127f0d48fced40687489d064b2c419f6141153152d428",
+    "requirement": "From the actual empty RouterState, every arbitrary finite mixture of the existing Trace.Event receive RPC, heartbeat, join, leave and publish operations preserves unique peers in every mesh and fanout. Require lawful selection only at events that select peers. Derive necessary candidate and peer-table invariants from initialization and actual updates; do not assume the desired property at intermediate states, wrap the router in deduplication, change runtime behavior or weaken the existing seen-cache theorems. Client choices, standing, validation and times may vary per event.",
+    "theorems": [
+      "EthLib.Networking.Proofs.Gossip.Reachability.step_wellFormed",
+      "EthLib.Networking.Proofs.Gossip.Reachability.run_wellFormed",
+      "EthLib.Networking.Proofs.Gossip.Reachability.run_empty_mesh_nodup",
+      "EthLib.Networking.Proofs.Gossip.Reachability.run_empty_fanout_nodup"
+    ],
+    "inspection": "EthLib.Networking.Proofs.Gossip.Reachability.step_wellFormed : ∀ (p : EthLib.Networking.Gossip.GossipsubParameters)\n  (msgId : EthLib.Networking.Gossip.Message → EthLib.Networking.Gossip.MessageId)\n  (event : EthLib.Networking.Proofs.Gossip.Trace.Event) (s : EthLib.Networking.Gossip.RouterState),\n  EthLib.Networking.Proofs.Gossip.Reachability.WellFormed s →\n    EthLib.Networking.Proofs.Gossip.Reachability.LawfulSelections event →\n      EthLib.Networking.Proofs.Gossip.Reachability.WellFormed\n        (EthLib.Networking.Proofs.Gossip.Trace.Event.step p msgId event s).fst\nAxioms: #[propext, Classical.choice, Quot.sound]\nEthLib.Networking.Proofs.Gossip.Reachability.run_wellFormed : ∀ (p : EthLib.Networking.Gossip.GossipsubParameters)\n  (msgId : EthLib.Networking.Gossip.Message → EthLib.Networking.Gossip.MessageId)\n  (s : EthLib.Networking.Gossip.RouterState) (events : List EthLib.Networking.Proofs.Gossip.Trace.Event),\n  EthLib.Networking.Proofs.Gossip.Reachability.WellFormed s →\n    (∀ (event : EthLib.Networking.Proofs.Gossip.Trace.Event),\n        event ∈ events → EthLib.Networking.Proofs.Gossip.Reachability.LawfulSelections event) →\n      EthLib.Networking.Proofs.Gossip.Reachability.WellFormed\n        (EthLib.Networking.Proofs.Gossip.Trace.run p msgId s events)\nAxioms: #[propext, Classical.choice, Quot.sound]\nEthLib.Networking.Proofs.Gossip.Reachability.run_empty_mesh_nodup : ∀ (p : EthLib.Networking.Gossip.GossipsubParameters)\n  (msgId : EthLib.Networking.Gossip.Message → EthLib.Networking.Gossip.MessageId)\n  (events : List EthLib.Networking.Proofs.Gossip.Trace.Event),\n  (∀ (event : EthLib.Networking.Proofs.Gossip.Trace.Event),\n      event ∈ events → EthLib.Networking.Proofs.Gossip.Reachability.LawfulSelections event) →\n    ∀ (topic : String),\n      (EthLib.Networking.Gossip.peersOf (EthLib.Networking.Proofs.Gossip.Trace.run p msgId { } events).mesh topic).Nodup\nAxioms: #[propext, Classical.choice, Quot.sound]\nEthLib.Networking.Proofs.Gossip.Reachability.run_empty_fanout_nodup : ∀ (p : EthLib.Networking.Gossip.GossipsubParameters)\n  (msgId : EthLib.Networking.Gossip.Message → EthLib.Networking.Gossip.MessageId)\n  (events : List EthLib.Networking.Proofs.Gossip.Trace.Event),\n  (∀ (event : EthLib.Networking.Proofs.Gossip.Trace.Event),\n      event ∈ events → EthLib.Networking.Proofs.Gossip.Reachability.LawfulSelections event) →\n    ∀ (topic : String),\n      (EthLib.Networking.Gossip.peersOf (EthLib.Networking.Proofs.Gossip.Trace.run p msgId { } events).fanout\n          topic).Nodup\nAxioms: #[propext, Classical.choice, Quot.sound]\nMEDEN_THEOREMS_CHECKED\n\n",
+    "source_revision": "sha256:f03ce675a527baf5ffb5bf18a50e89fead736101bae95adeaa2f6633b6164056",
+    "after_revision": "sha256:f03ce675a527baf5ffb5bf18a50e89fead736101bae95adeaa2f6633b6164056",
+    "module": "EthLib.Networking.Proofs.Gossip.Reachability",
+    "success": true,
+    "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+    "stdout": "Build completed successfully (2207 jobs).\n",
+    "stderr": ""
+  },
+  "input_fingerprint_note": "The remote full clone includes docbuild/lakefile.toml, omitted by the original sparse checkout. All other 15764 Lean/configuration inputs matched. Each local check binds its own unchanged inputs; no file was removed to force an old fingerprint.",
+  "live_continuation": {
+    "provider": "hermes:ollama-cloud",
+    "model": "minimax-m3",
+    "endpoint": "https://ollama.com/v1/chat/completions",
+    "scripted_inference": false,
+    "host_guided": true,
+    "local_inference": false,
+    "first_attempt": "Observed Automatic work limit reached in the live browser state before saving, after read-only source/evidence inspection; no assistant answer.",
+    "first_attempt_retained_evidence": "The saved log ends with Tool not executed: turn stopped; the host progress note retains the observed budget stop. The post-save stopped field is null, so that snapshot alone does not prove the earlier stop.",
+    "explicit_new_host_turn": "Answered from retained tool context without further tool calls or tracked source edits.",
+    "source_changed": false,
+    "native_project_accepted": false,
+    "native_project_verified": false,
+    "assessment_limits": [
+      "The model response is retained as visible history, not proof authority.",
+      "Its proposed documentation consistency task was already completed; it was not adopted as new work.",
+      "The exact kernel terms project mesh from invariant .2.2 and fanout from .2.1; the model prose described this less precisely."
+    ]
+  },
+  "scope": "Saved visible history, actual source inspection, local Lean recheck, fresh model approval, explicit recovery from a budget stop, and unapproved restart in a new remote clone."
+}
