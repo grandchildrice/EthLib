@@ -798,6 +798,13 @@
       "time": 1795077637,
       "note": "Meden GUI startup/history/whole-workspace navigation and host provider/model selection are implemented in main commit 119b7d0.\nThe actual EthLib workspace opened with saved chat and a 2517-file overview before inference approval.\nThe real minimax-m3 model selected through the GUI freshly rechecked gossip_invariants with the final native binary; all three helper theorems passed with unchanged source fingerprints and only the standard three axioms.\nThe receiveRpc_wellFormed and complete initialized finite-trace mesh/fanout results remain unproved; no router source or existing requirement was changed.",
       "check": null
+    },
+    {
+      "id": "event_07c369a9ab8e2c27d3d5d07efd393027376ebac21d9285f697dbb389cc721de1",
+      "task": "gossip_receive",
+      "time": 1795077842,
+      "note": "The final GUI was reopened after the main/fork pushes without provider/model arguments.\nIt displayed the retained real-model conversation and all 2517 source files with saved-check statuses before any inference approval.\nThe new host gateway remained unselected and unauthorized, with no new inference or proof claim.\nThis restart confirms navigation/history continuity; receiveRpc_wellFormed and the full initialized trace remain pending.",
+      "check": null
     }
   ],
   "conversations": [
@@ -1262,6 +1269,23 @@
     },
     {
       "id": "conversation_a99a1ba04a40dab91bc2713dfa61a2578e290fd1d9b37a3da0e6b27134d69aaf",
+      "messages": [
+        {
+          "speaker": "user",
+          "text": "Fresh check only: call check_lean_work now with id gossip_invariants, then report that new compiler result briefly. Do not reuse an archived success as a new check. Keep every source file and stored requirement unchanged; this is only the three helper theorems, not the full pending reachable-state requirement."
+        },
+        {
+          "speaker": "assistant",
+          "text": "I'll run a fresh check on the stored work item now."
+        },
+        {
+          "speaker": "assistant",
+          "text": "**Fresh `check_lean_work id gossip_invariants`: success** (this run, not the archive).\n\n- Termination: `Exited(ExitStatus(unix_wait_status(0)))`; stdout: `Build completed successfully (2207 jobs).`; stderr empty.\n- Module `EthLib.Networking.Proofs.Gossip.Reachability` — all three helper theorems present with unchanged statements:\n  - `fanout_nodup_of_entries` : `∀ {m : List (String × List PeerId)}, (∀ entry ∈ m, entry.snd.Nodup) → ∀ t, (peersOf m t).Nodup`\n  - `topicPeers_nodup` : `∀ {s : RouterState}, (List.map Prod.fst s.peerTopics).Nodup → ∀ t, (topicPeers s t).Nodup`\n  - `applySubscription_nodup` : `∀ {peerTopics src} (sub : SubOpts), (List.map Prod.fst peerTopics).Nodup → (List.map Prod.fst (applySubscription src peerTopics sub)).Nodup`\n- Axioms used: only `propext, Classical.choice, Quot.sound`.\n- `source_revision` == `after_revision` (`sha256:f2ddfc6d…`) — no source changed.\n\nNo files were modified and stored requirements are unchanged. This covers only the three helper theorems; the full `gossip_reachability` trace requirement and the pending `gossip_receive` `receiveRpc_wellFormed` goal remain open, and this historical Lean check does not establish `project_status.verified`."
+        }
+      ]
+    },
+    {
+      "id": "conversation_577cddeebe53e5ac9b90b8eed8a8ccd9e307d39eff264695ecec881d3f1eefc6",
       "messages": [
         {
           "speaker": "user",
