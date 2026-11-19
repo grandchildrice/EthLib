@@ -1,0 +1,116 @@
+{
+  "kind": "Meden-host-guided-EthLib-Lean-helper-contribution",
+  "provider": "hermes:ollama-cloud",
+  "model": "minimax-m3",
+  "scripted_inference": false,
+  "host_guided_candidate": true,
+  "local_inference": false,
+  "cold_install": false,
+  "confidentiality_evidence": false,
+  "task": {
+    "id": "gossip_invariants",
+    "title": "Gossipsub peer-list invariant lemmas",
+    "requirement": "Prove universal helper lemmas for the reachable-state proof: a topic's candidate peers are unique when the peerTopics keys are unique; lookup in a fanout map returns unique peers when every stored entry has unique peers; applySubscription preserves uniqueness of peerTopics keys. Keep the original router operations and all three WellFormed conditions. This helper stage does not establish the full gossip_reachability trace requirement.",
+    "module": "EthLib.Networking.Proofs.Gossip.Reachability",
+    "theorems": [
+      "EthLib.Networking.Proofs.Gossip.Reachability.fanout_nodup_of_entries",
+      "EthLib.Networking.Proofs.Gossip.Reachability.topicPeers_nodup",
+      "EthLib.Networking.Proofs.Gossip.Reachability.applySubscription_nodup"
+    ],
+    "next": "Reuse these checked helpers in gossip_reachability. Next prove preservation of all three WellFormed conditions by actual receiveRpc, join/leave/publish and heartbeat, then by Event.step and Trace.run from the empty RouterState. Do not mark the full trace requirement complete from these helpers."
+  },
+  "check": {
+    "engine_sha256": "sha256:def1b7930aa6a599d5d127f0d48fced40687489d064b2c419f6141153152d428",
+    "requirement": "Prove universal helper lemmas for the reachable-state proof: a topic's candidate peers are unique when the peerTopics keys are unique; lookup in a fanout map returns unique peers when every stored entry has unique peers; applySubscription preserves uniqueness of peerTopics keys. Keep the original router operations and all three WellFormed conditions. This helper stage does not establish the full gossip_reachability trace requirement.",
+    "theorems": [
+      "EthLib.Networking.Proofs.Gossip.Reachability.fanout_nodup_of_entries",
+      "EthLib.Networking.Proofs.Gossip.Reachability.topicPeers_nodup",
+      "EthLib.Networking.Proofs.Gossip.Reachability.applySubscription_nodup"
+    ],
+    "inspection": "EthLib.Networking.Proofs.Gossip.Reachability.fanout_nodup_of_entries : ∀ {m : List (String × List EthLib.Networking.Gossip.PeerId)},\n  (∀ (entry : String × List EthLib.Networking.Gossip.PeerId), entry ∈ m → entry.snd.Nodup) →\n    ∀ (t : String), (EthLib.Networking.Gossip.peersOf m t).Nodup\nAxioms: #[propext, Classical.choice, Quot.sound]\nEthLib.Networking.Proofs.Gossip.Reachability.topicPeers_nodup : ∀ {s : EthLib.Networking.Gossip.RouterState},\n  (List.map Prod.fst s.peerTopics).Nodup → ∀ (t : String), (EthLib.Networking.Gossip.topicPeers s t).Nodup\nAxioms: #[propext, Classical.choice, Quot.sound]\nEthLib.Networking.Proofs.Gossip.Reachability.applySubscription_nodup : ∀ {peerTopics : List (EthLib.Networking.Gossip.PeerId × List String)} {src : EthLib.Networking.Gossip.PeerId}\n  (sub : EthLib.Networking.Gossip.SubOpts),\n  (List.map Prod.fst peerTopics).Nodup →\n    (List.map Prod.fst (EthLib.Networking.Gossip.applySubscription src peerTopics sub)).Nodup\nAxioms: #[propext, Classical.choice, Quot.sound]\nMEDEN_THEOREMS_CHECKED\n\n",
+    "source_revision": "sha256:f2ddfc6d78421256867df35451b367d7be91471225fa59d4147a932c427e6bb2",
+    "after_revision": "sha256:f2ddfc6d78421256867df35451b367d7be91471225fa59d4147a932c427e6bb2",
+    "module": "EthLib.Networking.Proofs.Gossip.Reachability",
+    "success": true,
+    "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+    "stdout": "✔ [2206/2207] Built EthLib.Networking.Proofs.Gossip.Reachability (186ms)\nBuild completed successfully (2207 jobs).\n",
+    "stderr": ""
+  },
+  "files": [
+    {
+      "path": "EthLib/Networking/Proofs/Gossip/Reachability.lean",
+      "sha256": "0b5edf00f09fd271e45bb28109ba26116efff19b0ffc285bf0f56e5e999f57e2"
+    },
+    {
+      "path": "EthLib/Networking/Proofs.lean",
+      "sha256": "4d0899cc45fa0dc9313c6cc56a62696a9ff96b43d90b98f6770dda23f279397d"
+    },
+    {
+      "path": "SOUNDNESS.md",
+      "sha256": "7f1aab03c1b18c69515a2034c328ae88e76b9835e6a0d20166dab0b15eaa1534"
+    }
+  ],
+  "primary_sources": [
+    {
+      "url": "https://github.com/libp2p/specs/blob/c750236de43cd8b246a824b377dfdb26bae686db/pubsub/gossipsub/gossipsub-v1.0.md",
+      "git_blob_sha1": "db8fdbe0bc9a0b8dab50b8d533bdae4748962cc2",
+      "local_cache_committed": false,
+      "fetched_source_sha256": "2f5c771e02f646b3b31634cb84c9b745c353a00b1af1282169c8e28fe371688f",
+      "local_cache_sha256": "8a3891a1ad5d8b96ce1f237131f8e258bfec9c319b3207ad34578229637f0933",
+      "local_cache_transformation": "One trailing newline was added to the exact fetched UTF-8 source. The original Git blob hash was independently reproduced."
+    },
+    {
+      "url": "https://github.com/libp2p/specs/blob/c750236de43cd8b246a824b377dfdb26bae686db/pubsub/gossipsub/gossipsub-v1.1.md",
+      "git_blob_sha1": "73b3301dbbd511e5341a07c2c1c9e54692a7ba4f",
+      "local_cache_committed": false,
+      "fetched_source_sha256": "a559b81069d55377998fb679d7e20c32d62131681a367a4128f7a1430f3760c4",
+      "local_cache_sha256": "c6e6bd99a466c0313ad16fbaf1cdf10a386330be88ef09a8b1f83e5c659a8b86",
+      "local_cache_transformation": "One trailing newline was added to the exact fetched UTF-8 source. The original Git blob hash was independently reproduced."
+    }
+  ],
+  "checks": {
+    "build": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "Build completed successfully (14518 jobs).\n",
+      "stderr": ""
+    },
+    "declarations": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "check-decls: 135675 declarations under EthLib, 0 findings, 0 in the baseline, 0 new, 0 stale\n",
+      "stderr": "ℹ [5/13] Replayed VCVio/leanhashing.static\ninfo: leanhashing: native backend disabled because 'third_party/mlkem-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [7/13] Replayed VCVio/leanmlkem.static\ninfo: leanmlkem: native backend disabled because 'third_party/mlkem-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [9/13] Replayed VCVio/leanmldsa.static\ninfo: leanmldsa: native backend disabled because 'third_party/mldsa-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [11/13] Replayed VCVio/leanfalcon.static\ninfo: leanfalcon: native backend disabled because 'third_party/c-fn-dsa' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\n"
+    },
+    "accessors": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "check-accessors: 547 modules, 0 sites in 0 entries, baseline 0 entries\n",
+      "stderr": "ℹ [2/13] Replayed VCVio/leanhashing.static\ninfo: leanhashing: native backend disabled because 'third_party/mlkem-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [4/13] Replayed VCVio/leanmlkem.static\ninfo: leanmlkem: native backend disabled because 'third_party/mlkem-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [6/13] Replayed VCVio/leanmldsa.static\ninfo: leanmldsa: native backend disabled because 'third_party/mldsa-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [8/13] Replayed VCVio/leanfalcon.static\ninfo: leanfalcon: native backend disabled because 'third_party/c-fn-dsa' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\n✔ [10/13] Built CheckAccessors (872ms)\n✔ [12/13] Built CheckAccessors:c.o (1.8s)\n✔ [13/13] Built «check-accessors»:exe (7.3s)\n"
+    },
+    "theorems": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "check-theorems: 548 modules, 4 findings, 0 new, 0 stale\n",
+      "stderr": "ℹ [2/16] Replayed VCVio/leanhashing.static\ninfo: leanhashing: native backend disabled because 'third_party/mlkem-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [4/16] Replayed VCVio/leanmlkem.static\ninfo: leanmlkem: native backend disabled because 'third_party/mlkem-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [6/16] Replayed VCVio/leanmldsa.static\ninfo: leanmldsa: native backend disabled because 'third_party/mldsa-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [8/16] Replayed VCVio/leanfalcon.static\ninfo: leanfalcon: native backend disabled because 'third_party/c-fn-dsa' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\n✔ [10/16] Built CheckTheoremAttributes (944ms)\n✔ [12/16] Built CheckTheorems (1000ms)\n✔ [14/16] Built CheckTheoremAttributes:c.o (1.1s)\n✔ [15/16] Built CheckTheorems:c.o (2.5s)\n✔ [16/16] Built «check-theorems»:exe (6.2s)\n"
+    },
+    "theorem_baseline": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "check-theorems-baseline: no entries added since 9821f024d5a1a4ff27f4bad149eb524cf8b6207a\n",
+      "stderr": ""
+    },
+    "layout": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "No layout findings.\n",
+      "stderr": ""
+    }
+  },
+  "scope": "Three universal helper lemmas, edited by the real Meden model with actual offline compiler rejection and repair. The full gossip_reachability requirement remains unfinished; no router runtime change and no native Rust proof authority.",
+  "limits": [
+    "Full WellFormed preservation by all five operations and initialized finite traces remains open.",
+    "Declaration guards ran on kernel declarations; the optional VCVio native c-fn-dsa backend is not installed and is not validated.",
+    "Writing checker emitted advisory suggestions, including pre-existing text; unrelated prose was left unchanged.",
+    "Check records are historical observations and require local rechecking after cloning."
+  ]
+}

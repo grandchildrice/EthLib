@@ -2697,6 +2697,11 @@ The claim excludes replies to IWANT: the message cache may still answer a reques
 `heartbeat_seen_expired` states the exact expiry boundary; clock rollback is outside the monotonicity hypothesis.
 These theorems establish suppression, not network delivery liveness or reachable-state uniqueness of mesh and fanout peers.
 
+`Reachability.WellFormed` (`Networking/Proofs/Gossip/Reachability.lean`) requires distinct peer keys in `peerTopics`, distinct peers in each fanout entry and distinct peers in every mesh lookup.
+`topicPeers_nodup` derives distinct topic candidates from the peer keys, and `fanout_nodup_of_entries` derives distinct lookup peers from the fanout entries.
+`applySubscription_nodup` preserves distinct peer keys through a subscription change.
+Preservation by all router operations and finite event traces from initialization remains open.
+
 The exports `gossip_join`, `gossip_leave`, `gossip_publish` and `gossip_heartbeat` fix the choice among candidates to the first ones, in candidate order.
 `Select.first_lawful` proves that this choice is lawful.
 So the theorems hold for the exports, under the hypotheses that each states on the parameters.
