@@ -1,0 +1,89 @@
+{
+  "kind": "Meden host-guided Gossip frame helpers",
+  "provider": "hermes:ollama-cloud",
+  "model": "minimax-m3",
+  "scripted_inference": false,
+  "host_guided_candidate": true,
+  "local_inference": false,
+  "cold_install": false,
+  "task": "gossip_receive",
+  "scope": "Four private fold/frame helper proofs. The public receiveRpc_wellFormed and initialized mixed-trace requirements remain unproved.",
+  "source": {
+    "path": "EthLib/Networking/Proofs/Gossip/Reachability.lean",
+    "sha256": "cfb969015de8feb7a63bd27312ff05048c45ae4430200c6094e52917e0adab0f"
+  },
+  "fresh_public_helper_check": {
+    "engine_sha256": "sha256:def1b7930aa6a599d5d127f0d48fced40687489d064b2c419f6141153152d428",
+    "requirement": "Prove universal helper lemmas for the reachable-state proof: a topic's candidate peers are unique when the peerTopics keys are unique; lookup in a fanout map returns unique peers when every stored entry has unique peers; applySubscription preserves uniqueness of peerTopics keys. Keep the original router operations and all three WellFormed conditions. This helper stage does not establish the full gossip_reachability trace requirement.",
+    "theorems": [
+      "EthLib.Networking.Proofs.Gossip.Reachability.fanout_nodup_of_entries",
+      "EthLib.Networking.Proofs.Gossip.Reachability.topicPeers_nodup",
+      "EthLib.Networking.Proofs.Gossip.Reachability.applySubscription_nodup"
+    ],
+    "inspection": "EthLib.Networking.Proofs.Gossip.Reachability.fanout_nodup_of_entries : ∀ {m : List (String × List EthLib.Networking.Gossip.PeerId)},\n  (∀ (entry : String × List EthLib.Networking.Gossip.PeerId), entry ∈ m → entry.snd.Nodup) →\n    ∀ (t : String), (EthLib.Networking.Gossip.peersOf m t).Nodup\nAxioms: #[propext, Classical.choice, Quot.sound]\nEthLib.Networking.Proofs.Gossip.Reachability.topicPeers_nodup : ∀ {s : EthLib.Networking.Gossip.RouterState},\n  (List.map Prod.fst s.peerTopics).Nodup → ∀ (t : String), (EthLib.Networking.Gossip.topicPeers s t).Nodup\nAxioms: #[propext, Classical.choice, Quot.sound]\nEthLib.Networking.Proofs.Gossip.Reachability.applySubscription_nodup : ∀ {peerTopics : List (EthLib.Networking.Gossip.PeerId × List String)} {src : EthLib.Networking.Gossip.PeerId}\n  (sub : EthLib.Networking.Gossip.SubOpts),\n  (List.map Prod.fst peerTopics).Nodup →\n    (List.map Prod.fst (EthLib.Networking.Gossip.applySubscription src peerTopics sub)).Nodup\nAxioms: #[propext, Classical.choice, Quot.sound]\nMEDEN_THEOREMS_CHECKED\n\n",
+    "source_revision": "sha256:0f028de544447d490b06827fac9c5deb7e40dd664a6d894de11f19a38f0a117a",
+    "after_revision": "sha256:0f028de544447d490b06827fac9c5deb7e40dd664a6d894de11f19a38f0a117a",
+    "module": "EthLib.Networking.Proofs.Gossip.Reachability",
+    "success": true,
+    "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+    "stdout": "✔ [2206/2207] Built EthLib.Networking.Proofs.Gossip.Reachability (297ms)\nBuild completed successfully (2207 jobs).\n",
+    "stderr": ""
+  },
+  "checks": {
+    "build": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "✔ [14514/14518] Built EthLib.Networking.Proofs (890ms)\n✔ [14516/14518] Built EthLib.Proofs (1.7s)\nBuild completed successfully (14518 jobs).\n",
+      "stderr": ""
+    },
+    "decls": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "check-decls: 135684 declarations under EthLib, 0 findings, 0 in the baseline, 0 new, 0 stale\n",
+      "stderr": "ℹ [5/13] Replayed VCVio/leanhashing.static\ninfo: leanhashing: native backend disabled because 'third_party/mlkem-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [7/13] Replayed VCVio/leanmlkem.static\ninfo: leanmlkem: native backend disabled because 'third_party/mlkem-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [9/13] Replayed VCVio/leanmldsa.static\ninfo: leanmldsa: native backend disabled because 'third_party/mldsa-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [11/13] Replayed VCVio/leanfalcon.static\ninfo: leanfalcon: native backend disabled because 'third_party/c-fn-dsa' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\n"
+    },
+    "check-accessors": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "check-accessors: 547 modules, 0 sites in 0 entries, baseline 0 entries\n",
+      "stderr": "ℹ [5/13] Replayed VCVio/leanhashing.static\ninfo: leanhashing: native backend disabled because 'third_party/mlkem-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [7/13] Replayed VCVio/leanmlkem.static\ninfo: leanmlkem: native backend disabled because 'third_party/mlkem-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [9/13] Replayed VCVio/leanmldsa.static\ninfo: leanmldsa: native backend disabled because 'third_party/mldsa-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [11/13] Replayed VCVio/leanfalcon.static\ninfo: leanfalcon: native backend disabled because 'third_party/c-fn-dsa' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\n"
+    },
+    "check-theorems": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "check-theorems: 548 modules, 4 findings, 0 new, 0 stale\n",
+      "stderr": "ℹ [8/16] Replayed VCVio/leanhashing.static\ninfo: leanhashing: native backend disabled because 'third_party/mlkem-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [10/16] Replayed VCVio/leanmlkem.static\ninfo: leanmlkem: native backend disabled because 'third_party/mlkem-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [12/16] Replayed VCVio/leanmldsa.static\ninfo: leanmldsa: native backend disabled because 'third_party/mldsa-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\nℹ [14/16] Replayed VCVio/leanfalcon.static\ninfo: leanfalcon: native backend disabled because 'third_party/c-fn-dsa' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\n"
+    },
+    "baseline": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "check-theorems-baseline: no entries added since 7a5c1d76c828c02a7aff70359851a4b66604fe72\n",
+      "stderr": ""
+    },
+    "layout": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "No layout findings.\n",
+      "stderr": ""
+    },
+    "soundness": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "",
+      "stderr": ""
+    },
+    "soundness-tests": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "SOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\nSOUNDNESS.md: generated blocks updated\n",
+      "stderr": "..................\n----------------------------------------------------------------------\nRan 18 tests in 0.064s\n\nOK\n"
+    }
+  },
+  "limits": [
+    "The first candidate failed the real compiler; the repaired source passed. Both observations remain in workspace history.",
+    "No existing public theorem statement or router operation changed.",
+    "Declaration checking covers all compiled declarations, including private helpers.",
+    "VCVio optional native crypto backends remain uninstalled and unvalidated.",
+    "Saved checks are historical observations; recheck locally after cloning."
+  ]
+}

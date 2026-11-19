@@ -86,4 +86,48 @@ theorem applySubscription_nodup {peerTopics : List (PeerId × List String)} {src
     exact hne he
   · exact List.Sublist.nodup (List.Sublist.map Prod.fst List.filter_sublist) h
 
+
+/-- A fold preserves a projection when every step preserves it. -/
+private theorem foldl_project {A B C : Type} (l : List A) (f : B → A → B) (get : B → C)
+    (h : ∀ b a, get (f b a) = get b) (b : B) : get (l.foldl f b) = get b := by
+  induction l generalizing b with
+  | nil => rfl
+  | cons a l ih => exact (ih (f b a)).trans (h b a)
+
+/-- Processing one message keeps the peer table and fanout. -/
+private theorem receiveMessage_tables (p : GossipsubParameters)
+    (msgId : Message → MessageId) (validate : Message → ValidationResult) (now : Nat)
+    (s : RouterState) (out : Out) (m : Message) :
+    ((receiveMessage p msgId validate now (s, out) m).1.peerTopics,
+      (receiveMessage p msgId validate now (s, out) m).1.fanout) =
+      (s.peerTopics, s.fanout) := by
+  simp only [receiveMessage]
+  split
+  · rfl
+  · cases validate m <;> rfl
+
+/-- Processing one GRAFT keeps the peer table and fanout. -/
+private theorem receiveGraft_tables (p : GossipsubParameters) (backoffMs now : Nat)
+    (src : PeerId) (s : RouterState) (out : Out) (g : Graft) :
+    ((receiveGraft p backoffMs now src (s, out) g).1.peerTopics,
+      (receiveGraft p backoffMs now src (s, out) g).1.fanout) =
+      (s.peerTopics, s.fanout) := by
+  simp only [receiveGraft]
+  split
+  · rfl
+  · split
+    · rfl
+    · split
+      · rfl
+      · split
+        · rfl
+        · split <;> rfl
+
+/-- Processing one PRUNE keeps the peer table and fanout. -/
+private theorem receivePrune_tables (pruneBackoffMs now : Nat) (src : PeerId)
+    (s : RouterState) (q : Prune) :
+    ((receivePrune pruneBackoffMs now src s q).peerTopics,
+      (receivePrune pruneBackoffMs now src s q).fanout) = (s.peerTopics, s.fanout) := by
+  by_cases ht : q.topicId ∉ s.topics <;> simp [receivePrune, ht]
+
 end EthLib.Networking.Proofs.Gossip.Reachability
