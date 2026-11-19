@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "name": "EthLib assurance contributions",
+  "tasks": [
+    {
+      "id": "tls",
+      "title": "QUIC/TLS initialized authentication traces",
+      "requirement": "Every completed client/server handshake reachable from its actual initializer under fixed configuration and expected peer must have successfully checked the peer CertificateVerify and Finished for the corresponding saved peer chain and transcript. Preserve exact phase, message, identity and configuration linkage; do not assume the authentication conclusion.",
+      "module": "EthLib.Networking.Proofs.Quic.Tls.Reachable",
+      "theorems": [],
+      "next": "Review initialized-trace theorems, run the named Lean checks and sequencing mutation guard, then review the exact remaining cryptographic and transport assumptions."
+    },
+    {
+      "id": "gossip",
+      "title": "Gossipsub mixed-event duplicate suppression",
+      "requirement": "With fixed relevant parameters and message-ID function, preserve unexpired seen entries across arbitrary finite mixes of receive RPC, heartbeat, join, leave and publish with nondecreasing timestamps. After forwarding/delivery or a fresh publish, forbid subsequent forwarding/delivery of that ID before the original TTL expiry. IWANT answers are a separate operation.",
+      "module": "EthLib.Networking.Proofs.Gossip.Trace",
+      "theorems": [
+        "EthLib.Networking.Proofs.Gossip.Trace.emits_once",
+        "EthLib.Networking.Proofs.Gossip.Trace.publish_once"
+      ],
+      "next": "Run the mixed-trace theorem check and all native binding permutations including TTL expiry and clock rollback; retain the distinction between forwarding and IWANT answers."
+    },
+    {
+      "id": "bls",
+      "title": "Ethereum deposit registration and BLS security",
+      "requirement": "Connect Ethereum actual deposit signing roots, domain and ordinary BLS verification to registry admission and security games. Preserve the signed public key, withdrawal credentials and amount and account for real hash/signing queries. Do not replace deposit signatures with independently assumed BLS proof-of-possession. State any remaining adaptive aggregate-security obligation explicitly.",
+      "module": "EthLib.Consensus.Proofs.DepositAggregate",
+      "theorems": [],
+      "next": "Check concrete registration, registry provenance, single-registration co-CDH reduction and aggregate algebra. Complete or explicitly isolate the generalized adaptive registration-oracle coupling and aggregate probability bound."
+    }
+  ],
+  "events": [
+    {
+      "id": "event_f3e95fd1f19c79fab7cb6f397e07120f851255a09da016db46354237b028cf27",
+      "task": "tls",
+      "time": 1795060585,
+      "note": "Initial initialized-trace proof has passed actual offline Lean checking and an axiom inspection of all ten public theorems. Only propext, Classical.choice and Quot.sound were reported. A private sequencing-bypass mutation guard is being checked. No whole-handshake unforgeability or transport claim.",
+      "check": null
+    },
+    {
+      "id": "event_b9de6ad543e4510db1f509e6dc356761e351a5ace9ea5a35bf21b0929db524b1",
+      "task": "gossip",
+      "time": 1795060586,
+      "note": "Mixed receive/heartbeat/join/leave/publish trace proofs compile with warnings fatal. emits_once and publish_once preserve original TTL/message-ID binding under a nondecreasing clock. Native binding permutation tests and global integration checks remain pending. IWANT answers and global network liveness are outside this result.",
+      "check": null
+    },
+    {
+      "id": "event_bb1ecfd36aa80c09560861b2218317dd966dcdceb08e95ba037ed536395db106",
+      "task": "bls",
+      "time": 1795060586,
+      "note": "Four proof modules drafted: exact deposit registration, real registry transition provenance, fresh single-registration forgery reduction and aggregate extraction algebra. Lean checking is in progress. Adaptive aggregate-security probability transfer is not established; a separate key-hash oracle cannot simply replace Ethereum deposit signing.",
+      "check": null
+    }
+  ],
+  "conversations": []
+}
