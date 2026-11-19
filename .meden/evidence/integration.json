@@ -1,0 +1,131 @@
+{
+  "version": 1,
+  "base_commit": "e23c20e74583886c6e80709b7efa1eca0adff1fd",
+  "contribution_commit": "f241ee98a2ad4135c7a51459ccad2a1b25c0caa6",
+  "sources": {
+    "EthLib/Networking/Proofs/Quic/Tls/Reachable.lean": "b07a7d5be7a402f3e41444bc3af67c5af032793ddcb7172d084bb74378e3d349",
+    "EthLib/Networking/Proofs/Gossip/Trace.lean": "cb57027527a6eb8b94f370003debedbe834145e595d946eea6c40c5af3a9812f",
+    "EthLib/Consensus/Proofs/DepositRegistration.lean": "90868c802a84adee329f77c3c9fcb5ddb68c2a3145e0e135267e9848436664ae",
+    "EthLib/Consensus/Proofs/DepositRegistry.lean": "5276bc6a3eeaa728d9ad5dc46cbeda84d1bb8206d06729f038a477fefda562da",
+    "EthLib/Consensus/Proofs/DepositSecurity.lean": "b73cd7dbc1bffd8424f87ae719f2318e47b030efcf48b8e0b7551ef6d60df331",
+    "EthLib/Consensus/Proofs/DepositAggregate.lean": "78209dea3981b886aab5fa84156500f35ae238e7dfbbe5d7f36d9250916940e7",
+    "EthLib/Consensus/Proofs/DepositAdaptive.lean": "b64a0cf34ad9858920f64d97365386e013d0bf934cefc34244bc58a2397ee6e7"
+  },
+  "checks": {
+    "whole_lean_build": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": ".FastConfirmation.HistoricalAnchor (736ms)\n\u2714 [14409/14516] Built EthLib.Cryptography.Proofs.Sphincs.Security.SphincsSecurity.SmallBudget.Linear.Start (1.3s)\n\u2714 [14412/14516] Built EthLib.Consensus.Proofs.ForkChoice.FastConfirmation.QuorumDriftBound (1.8s)\n\u2714 [14414/14516] Built EthLib.Cryptography.Proofs.Sphincs.Security.SphincsSecurity.SmallBudget.Linear.Payoff (1.2s)\n\u2714 [14416/14516] Built EthLib.Consensus.Proofs.ForkChoice.FastConfirmation.CheckpointConsistency (4.7s)\n\u2714 [14418/14516] Built EthLib.Cryptography.Proofs.Sphincs.Security.SphincsSecurity.SmallBudget.Linear.ForsSteps (1.3s)\n\u2714 [14420/14516] Built EthLib.Cryptography.Proofs.Sphincs.Security.SphincsSecurity.SmallBudget.Contact.RunFacts (1.4s)\n\u2714 [14422/14516] Built EthLib.Consensus.Proofs.DirectSafety.FundingEpoch (8.8s)\n\u2714 [14424/14516] Built EthLib.Consensus.Proofs.ForkChoice.FastConfirmation.RootViability (2.7s)\n\u2714 [14426/14516] Built EthLib.Consensus.Proofs.DirectSafety.FundingSlot (1.0s)\n\u2714 [14428/14516] Built EthLib.Cryptography.Proofs.Sphincs.Security.SphincsSecurity.SmallBudget.Contact.RevealRate (1.4s)\n\u2714 [14430/14516] Built EthLib.Consensus.Proofs.ForkChoice.FastConfirmation.HistoricalCoverage (2.0s)\n\u2714 [14432/14516] Built EthLib.Cryptography.Proofs.Sphincs.Security.SphincsSecurity.SmallBudget.Contact.PaidPotential (2.7s)\n\u2714 [14434/14516] Built EthLib.Consensus.Proofs.ForkChoice.FastConfirmation.QuorumDrift (1.5s)\n\u2714 [14436/14516] Built EthLib.Consensus.Proofs.ForkChoice.FastConfirmation (641ms)\n\u2714 [14438/14516] Built EthLib.Cryptography.Proofs.Sphincs.Security.SphincsSecurity.SmallBudget.Contact.Weights (1.4s)\n\u2714 [14440/14516] Built EthLib.Cryptography.Proofs.Sphincs.Security.SphincsSecurity.SmallBudget.Contact.Potential (2.1s)\n\u2714 [14442/14516] Built EthLib.Consensus.Proofs.DirectSafety.IntervalBounds (6.0s)\n\u2714 [14444/14516] Built EthLib.Consensus.Proofs.DirectSafety.SourceSafety (615ms)\n\u2714 [14446/14516] Built EthLib.Consensus.Proofs.DirectSafety.Apriori.Issuance (1.6s)\n\u2714 [14448/14516] Built EthLib.Cryptography.Proofs.Sphincs.Security.SphincsSecurity.SmallBudget.Contact.Signing (3.1s)\n\u2714 [14450/14516] Built EthLib.Consensus.Proofs.DirectSafety.Apriori.Branch (1.5s)\n\u2714 [14452/14516] Built EthLib.Cryptography.Proofs.Sphincs.Security.SphincsSecurity.SmallBudget.Contact.Bound (1.2s)\n\u2714 [14454/14516] Built EthLib.Cryptography.Proofs.Sphincs.Security.SphincsSecurity.SmallBudget.SampleEvents (1.2s)\n\u2714 [14456/14516] Built EthLib.Consensus.Proofs.DirectSafety.Apriori.Credits (2.0s)\n\u2714 [14458/14516] Built EthLib.Consensus.Proofs.DirectSafety.Apriori.Ceiling (3.1s)\n\u2714 [14460/14516] Built EthLib.Cryptography.Proofs.Sphincs.Security.SphincsSecurity.SmallBudget.SampleBound (4.6s)\n\u2714 [14462/14516] Built EthLib.Consensus.Proofs.DirectSafety.Apriori.Whistleblower (1.3s)\n\u2714 [14464/14516] Built EthLib.Consensus.Proofs.DirectSafety.Apriori.Ownership (2.5s)\n\u2714 [14466/14516] Built EthLib.Cryptography.Proofs.Sphincs.Security.SphincsSecurity.SmallBudget.Closing (3.9s)\n\u2714 [14468/14516] Built EthLib.Consensus.Proofs.DirectSafety.Apriori.Contracts.FirstDrop (1.5s)\n\u2714 [14470/14516] Built EthLib.Cryptography.Proofs.Sphincs.Security.SphincsSecurity.Certificates.Closing (3.4s)\n\u2714 [14472/14516] Built EthLib.Consensus.Proofs.DirectSafety.Apriori.Contracts.Ledger (2.6s)\n\u2714 [14474/14516] Built EthLib.Cryptography.Proofs.Sphincs.Security.SphincsSecurity.Certificates.Build (1.8s)\n\u2714 [14476/14516] Built EthLib.Consensus.Proofs.DirectSafety.Apriori.Contracts.Cohorts (4.8s)\n\u2714 [14478/14516] Built EthLib.Consensus.Proofs.DirectSafety.Apriori.Contracts.Producers (1.2s)\n\u2714 [14480/14516] Built EthLib.Consensus.Proofs.DirectSafety.Apriori.Penalties (4.6s)\n\u2714 [14482/14516] Built EthLib.Consensus.Proofs.DirectSafety.Apriori.Reserved.Operations (7.1s)\n\u2714 [14484/14516] Built EthLib.Consensus.Proofs.DirectSafety.Apriori.Reserved.Epoch (1.8s)\n\u2714 [14486/14516] Built EthLib.Consensus.Proofs.DirectSafety.Apriori.Common (3.3s)\n\u2714 [14488/14516] Built EthLib.Consensus.Proofs.DirectSafety.Apriori.Assembly (4.5s)\n\u2714 [14490/14516] Built EthLib.Consensus.Proofs.DirectSafety.Apriori.Baseline (1.3s)\n\u2714 [14492/14516] Built EthLib.Consensus.Proofs.DirectSafety.Apriori.SlotReplay (2.1s)\n\u2714 [14494/14516] Built EthLib.Cryptography.Proofs.Sphincs.Security.SphincsSecurity.Certificates.H26 (34s)\n\u2714 [14496/14516] Built EthLib.Cryptography.Proofs.Sphincs.Security.SphincsSecurity.Lifetimes (1.0s)\n\u2714 [14498/14516] Built EthLib.Cryptography.Proofs.Sphincs.Security.SphincsSecurity.Main (1.0s)\n\u2714 [14500/14516] Built EthLib.Consensus.Proofs.DirectSafety.Apriori.BlockFold (7.0s)\n\u2714 [14502/14516] Built EthLib.Consensus.Proofs.DirectSafety.Apriori (680ms)\n\u2714 [14504/14516] Built EthLib.Cryptography.Proofs.Sphincs.Security (1.1s)\n\u2714 [14506/14516] Built EthLib.Cryptography.Proofs.Sphincs.Unforgeability (1.3s)\n\u2714 [14508/14516] Built EthLib.Consensus.Proofs (1.4s)\n\u2714 [14510/14516] Built EthLib.Cryptography.Proofs.Sphincs (1.3s)\n\u2714 [14512/14516] Built EthLib.Cryptography.Proofs (1.3s)\n\u2714 [14514/14516] Built EthLib.Proofs (1.4s)\nBuild completed successfully (14516 jobs).\n",
+      "stderr": "",
+      "jobs": 14516
+    },
+    "declaration_audit": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "check-decls: 135667 declarations under EthLib, 0 findings, 0 in the baseline, 0 new, 0 stale\n",
+      "stderr": "\u2139 [2/13] Built VCVio/leanhashing.static (16ms)\ninfo: leanhashing: native backend disabled because 'third_party/mlkem-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\n\u2139 [4/13] Built VCVio/leanmlkem.static (16ms)\ninfo: leanmlkem: native backend disabled because 'third_party/mlkem-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\n\u2139 [6/13] Built VCVio/leanmldsa.static (18ms)\ninfo: leanmldsa: native backend disabled because 'third_party/mldsa-native' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\n\u2139 [8/13] Built VCVio/leanfalcon.static (14ms)\ninfo: leanfalcon: native backend disabled because 'third_party/c-fn-dsa' is not checked out; building an empty stub archive instead. Executables still link unless they reference VCVio's native FFI symbols. To enable the backend, run `git submodule update --init --recursive` in '/workspace/.lake/packages/VCVio' and rebuild.\n\u2714 [10/13] Built CheckDecls (1.2s)\n\u2714 [12/13] Built CheckDecls:c.o (2.5s)\n\u2714 [13/13] Built \u00abcheck-decls\u00bb:exe (7.7s)\n",
+      "declarations": 135667
+    },
+    "architecture_layout_generated_facts": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "The imports follow the rules of ARCHITECTURE.md.\nNo layout findings.\n",
+      "stderr": ""
+    },
+    "native_gossip_tests": {
+      "success": true,
+      "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+      "stdout": "thLib/Networking/Quic/Tls/Handshake.c.o.export /workspace/.lake/build/ir/EthLib/Networking/Quic/Tls/Messages.c.o.export /workspace/.lake/build/ir/EthLib/Networking/Quic/Tls/Transcript.c.o.export /workspace/.lake/build/ir/EthLib/Networking/Quic/Tls/Wire.c.o.export /workspace/.lake/build/ir/EthLib/Networking/Quic/Varint.c.o.export /workspace/.lake/build/ir/EthLib/Networking/Quic/Wire.c.o.export /workspace/.lake/build/ir/EthLib/Networking/ReqResp/Bounds.c.o.export /workspace/.lake/build/ir/EthLib/Networking/ReqResp/Encoding.c.o.export /workspace/.lake/build/ir/EthLib/Networking/Rlpx/Ecies.c.o.export /workspace/.lake/build/ir/EthLib/Networking/Rlpx/Frame.c.o.export /workspace/.lake/build/ir/EthLib/Networking/Rlpx/Handshake.c.o.export /workspace/.lake/build/ir/EthLib/Networking/Snappy/Block.c.o.export /workspace/.lake/build/ir/EthLib/Networking/Snappy/Compress.c.o.export /workspace/.lake/build/ir/EthLib/Networking/Snappy/Encode.c.o.export /workspace/.lake/build/ir/EthLib/Networking/Snappy/Frame.c.o.export /workspace/.lake/build/ir/EthLib/Networking/Snappy/FrameEncode.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Der.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/E2store.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Exports.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Exports/Rlp.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Exports/Ssz.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/JsonRpc.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Rlp.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Rlp/Codec.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Rlp/Decode.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Rlp/Encode.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Rlp/Item.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Rlp/Scalar.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Codec/Deserialize.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Codec/Json.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Codec/Layout.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Codec/Proof.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Codec/Root.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Codec/Serialize.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Error.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Merkle/Branch.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Merkle/Chunk.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Merkle/Gindex.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Merkle/Merkleize.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Merkle/Tree.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Merkle/Verify.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Packing.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Type/Bounds.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Type/Default.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Type/Desc.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Type/Paths.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Type/Valid.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Type/Value.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Typed/Basic.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Typed/Choice.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Typed/Class.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Typed/Collections.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Typed/Container.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Typed/ForkKind.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Typed/Gindex.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Typed/Rooted.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Typed/RootedList.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Typed/RootedValue.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Typed/Since.c.o.export /workspace/.lake/build/ir/EthLib/Serialization/Ssz/Typed/Text.c.o.export /analysis/lean/lib/libgmp.a /analysis/lean/lib/libuv.a -L/analysis/lean/lib/lean -L/nix/store/js941drasjx1cylqn60q29vbmqfzfrdr-python3-3.11.15/lib -Wl,--enable-new-dtags -Wl,-rpath,/analysis/lean/lib/lean -lstdc++ -lpthread -ldl -lm -lleanshared -o build/lib.linux-x86_64-cpython-311/ethlib/cryptography/_native.cpython-311-x86_64-linux-gnu.so -Wl,-Bsymbolic -Wl,--gc-sections -Wl,--version-script=/workspace/build/temp.linux-x86_64-cpython-311/native-exports.map\ncopying build/lib.linux-x86_64-cpython-311/ethlib/cryptography/_native.cpython-311-x86_64-linux-gnu.so -> bindings/python/ethlib/cryptography\n..................................................                       [100%]\n50 passed in 0.13s\n",
+      "stderr": "",
+      "passed": 50
+    },
+    "python_maintainer": {
+      "version": 1,
+      "file": "bindings/python/tests/gossip/test_trace.py",
+      "source_sha256": "29d9ba285b64a1a161ac90d90fb44fdb98f107372a97b58d07fa91e046996f7d",
+      "execution": "All repository scripts/checkers ran via immutable /tmp/meden-ethlib-checker lake ... env bash/python3 inside prepared offline worker; Python3.12 copied from trusted installed runtime and run with prepared Nix loader. No network-enabled repository/package code execution.",
+      "preparation": "Public fixed PyPI metadata plus wheel artifact data fetched with system CA TLS verification; SHA256 matched metadata; safe unpack rejects symlinks/absolute/parent paths.",
+      "scope": {
+        "ty_0.0.104": "changed test_trace.py, original pyproject configuration, prepared pytest extra search path",
+        "codespell_2.4.3": "changed test_trace.py, original pyproject configuration",
+        "ruff_0.17.5": "changed test_trace.py lint and format",
+        "check_raises": "whole tracked/new Python source",
+        "check_docstrings": "whole tracked/new Python source",
+        "check_python_boundary": "whole tracked/new package source",
+        "check_python_comments": "all lines of changed test_trace.py"
+      },
+      "result": "All eight checks pass; no skips or remaining prerequisites; prepared scratch symlink scan finds zero symlinks.",
+      "earlier_adapter_observation": "Default worker Python3.11 cannot parse existing PEP695 type alias. Initial failures retained /tmp/ethlib-python-maintainer-static.json; resolved by prepared real CPython3.12 without source edits.",
+      "reports": {
+        "assets": {
+          "network": "public dependency metadata/wheel data only; no repo/package code execution",
+          "wheels": [
+            {
+              "package": "ty",
+              "version": "0.0.104",
+              "metadata_url": "https://pypi.org/pypi/ty/0.0.104/json",
+              "url": "https://files.pythonhosted.org/packages/c0/55/ac634ca578d3a3b39a293aab14c9c9334009c179c79564e59af7ea61ca12/ty-0.0.104-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+              "filename": "ty-0.0.104-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+              "sha256": "57b142b2e1a7396e0775df67469ec89f0e519d0a842787ffb8a2f5276f61c12e",
+              "requires_dist": null,
+              "unpacked": "/home/gohan/workspace/EthLib/.lake/meden-python/ty-0.0.104"
+            },
+            {
+              "package": "codespell",
+              "version": "2.4.3",
+              "metadata_url": "https://pypi.org/pypi/codespell/2.4.3/json",
+              "url": "https://files.pythonhosted.org/packages/8b/bf/bdb951d34eb169140b546f44be9ec4525d1acefb9eb5572071f5492b19fc/codespell-2.4.3-py3-none-any.whl",
+              "filename": "codespell-2.4.3-py3-none-any.whl",
+              "sha256": "af2505b335e8573dbd2d384d1c4ef498f4006f4ba2d6fceca01e55b91f52628a",
+              "requires_dist": [
+                "chardet; extra == \"hard-encoding-detection\"",
+                "tomli; python_version < \"3.11\" and extra == \"toml\""
+              ],
+              "unpacked": "/home/gohan/workspace/EthLib/.lake/meden-python/codespell-2.4.3"
+            },
+            {
+              "package": "ruff",
+              "version": "0.17.5",
+              "metadata_url": "https://pypi.org/pypi/ruff/0.17.5/json",
+              "url": "https://files.pythonhosted.org/packages/f2/8a/1e29c0c3785ae7e5cd0d54ee8717a08867ef71545796340be4c653c57e24/ruff-0.17.5-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+              "filename": "ruff-0.17.5-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+              "sha256": "40ca8afaac309b41a5b2e09e4e7beb1f824826b93c25697c4d74f573324fba4e",
+              "requires_dist": null,
+              "unpacked": "/home/gohan/workspace/EthLib/.lake/meden-python/ruff-0.17.5"
+            }
+          ],
+          "python_runtime": {
+            "installed_origin": "/home/gohan/.local/share/uv/python/cpython-3.12.12-linux-x86_64-gnu",
+            "copied_to": "/home/gohan/workspace/EthLib/.lake/meden-python/cpython-3.12.12",
+            "binary_sha256": "20341168c41f91f4328c68d1f1a8d563f5734d515e617ff80a8dcfce323218b7"
+          }
+        },
+        "maintainer_scripts": {
+          "success": true,
+          "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+          "stdout": "[{\"command\": [\"/nix/store/7nbi22pcc92y2fqbkyp7h3srvvklmckb-glibc-2.40-224/lib/ld-linux-x86-64.so.2\", \"--library-path\", \"/workspace/.lake/meden-python/cpython-3.12.12/lib\", \"/workspace/.lake/meden-python/cpython-3.12.12/bin/python3.12\", \"scripts/check_raises.py\"], \"returncode\": 0, \"stdout\": \"\", \"stderr\": \"\"}, {\"command\": [\"/nix/store/7nbi22pcc92y2fqbkyp7h3srvvklmckb-glibc-2.40-224/lib/ld-linux-x86-64.so.2\", \"--library-path\", \"/workspace/.lake/meden-python/cpython-3.12.12/lib\", \"/workspace/.lake/meden-python/cpython-3.12.12/bin/python3.12\", \"scripts/check_docstrings.py\"], \"returncode\": 0, \"stdout\": \"\", \"stderr\": \"\"}, {\"command\": [\"/nix/store/7nbi22pcc92y2fqbkyp7h3srvvklmckb-glibc-2.40-224/lib/ld-linux-x86-64.so.2\", \"--library-path\", \"/workspace/.lake/meden-python/cpython-3.12.12/lib\", \"/workspace/.lake/meden-python/cpython-3.12.12/bin/python3.12\", \"scripts/check_python_boundary.py\"], \"returncode\": 0, \"stdout\": \"\", \"stderr\": \"\"}, {\"command\": [\"/nix/store/7nbi22pcc92y2fqbkyp7h3srvvklmckb-glibc-2.40-224/lib/ld-linux-x86-64.so.2\", \"--library-path\", \"/workspace/.lake/meden-python/cpython-3.12.12/lib\", \"/workspace/.lake/meden-python/cpython-3.12.12/bin/python3.12\", \"scripts/check_python_comments.py\", \"bindings/python/tests/gossip/test_trace.py\"], \"returncode\": 0, \"stdout\": \"No wrapped comment lines.\\n\", \"stderr\": \"\"}]\n",
+          "stderr": ""
+        },
+        "pinned_style_and_spelling": {
+          "success": true,
+          "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+          "stdout": "[{\"command\": [\"/nix/store/7nbi22pcc92y2fqbkyp7h3srvvklmckb-glibc-2.40-224/lib/ld-linux-x86-64.so.2\", \"/workspace/.lake/meden-python/ruff-0.17.5/ruff-0.17.5.data/scripts/ruff\", \"check\", \"bindings/python/tests/gossip/test_trace.py\"], \"returncode\": 0, \"stdout\": \"All checks passed!\\n\", \"stderr\": \"\"}, {\"command\": [\"/nix/store/7nbi22pcc92y2fqbkyp7h3srvvklmckb-glibc-2.40-224/lib/ld-linux-x86-64.so.2\", \"/workspace/.lake/meden-python/ruff-0.17.5/ruff-0.17.5.data/scripts/ruff\", \"format\", \"--check\", \"bindings/python/tests/gossip/test_trace.py\"], \"returncode\": 0, \"stdout\": \"1 file already formatted\\n\", \"stderr\": \"\"}, {\"command\": [\"python3\", \"-m\", \"codespell_lib\", \"bindings/python/tests/gossip/test_trace.py\"], \"returncode\": 0, \"stdout\": \"\", \"stderr\": \"\"}]\n",
+          "stderr": ""
+        },
+        "pinned_type": {
+          "success": true,
+          "termination": "Exited(ExitStatus(unix_wait_status(0)))",
+          "stdout": "All checks passed!\n",
+          "stderr": ""
+        }
+      },
+      "repository_edits": "None. Only ignored .lake/meden-python scratch and /tmp reports added."
+    }
+  },
+  "limits": [
+    "TLS: initialized accepted-call histories; no cryptographic handshake unforgeability, transport or independent peer agreement.",
+    "Gossip: fixed parameters/message-ID and nondecreasing clock before original TTL expiry; IWANT responses and network liveness excluded.",
+    "BLS: actual deposits, single-key reduction and adaptive shared-cache conditional extraction; mask probability, zero/overlap losses and distribution averaging still open.",
+    "Project execution, source/cache/compiler attribution and GUI remain adapters; no native Meden proof authority is imported."
+  ]
+}

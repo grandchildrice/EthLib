@@ -1,0 +1,127 @@
+{
+  "kind": "actual-remote-clone-public-GUI-read-only-restart",
+  "started": "2026-11-19T04:40:39.903Z",
+  "repository": "https://github.com/grandchildrice/EthLib",
+  "branch": "meden/assurance-workspace",
+  "project": "/tmp/ethlib-remote-clone-W6q4Kr/project",
+  "binary": "/tmp/meden-workspace-v11",
+  "xdg_data_home": "/tmp/ethlib-remote-clone-W6q4Kr/fresh-device-data-v11-final-review",
+  "fresh_xdg": true,
+  "approved": false,
+  "inference_requests": 0,
+  "lean_checks": 0,
+  "cold_install_validation": false,
+  "success": true,
+  "tasks": [
+    {
+      "id": "tls",
+      "title": "QUIC/TLS initialized authentication traces",
+      "module": "EthLib.Networking.Proofs.Quic.Tls.Reachable",
+      "named_theorems": [
+        "EthLib.Networking.Quic.Tls.Handshake.ClientTrace.completion_authenticated",
+        "EthLib.Networking.Quic.Tls.Handshake.ServerTrace.completion_authenticated",
+        "EthLib.Networking.Quic.Tls.Handshake.ClientTrace.no_completion_without_certificateVerify",
+        "EthLib.Networking.Quic.Tls.Handshake.ServerTrace.no_completion_without_certificateVerify"
+      ],
+      "transferred_successes": 1,
+      "transferred_failures": 0,
+      "visible_theorem_inspection": true,
+      "visible_axioms": true,
+      "inspection_excerpt": "EthLib.Networking.Quic.Tls.Handshake.ClientTrace.completion_authenticated : ∀ {config : EthLib.Networking.Quic.Tls.Handshake.Config} {expected : ByteArray}\n  {observations : List EthLib.Networking.Quic.Tls.Handshake.Observation}\n  {state : EthLib.Networking.Quic.Tls.Handshake.State} {input : EthLib.Networking.Quic.Tls.Handshake.FlightMessage}\n  {step : EthLib.Networking.Quic.Tls.Handshake.Step} {result : EthLib.Networking.Quic.Tls.Handshake.Completion},\n  EthLib.Networking.Quic.Tls.Handshake.ClientTrace config expected observations state →\n    EthLib.Networking.Quic.Tls.Handshake.clientStep co",
+      "resume_disabled": true
+    },
+    {
+      "id": "gossip",
+      "title": "Gossipsub mixed-event duplicate suppression",
+      "module": "EthLib.Networking.Proofs.Gossip.Trace",
+      "named_theorems": [
+        "EthLib.Networking.Proofs.Gossip.Trace.emits_once",
+        "EthLib.Networking.Proofs.Gossip.Trace.publish_once"
+      ],
+      "transferred_successes": 1,
+      "transferred_failures": 0,
+      "visible_theorem_inspection": true,
+      "visible_axioms": true,
+      "inspection_excerpt": "EthLib.Networking.Proofs.Gossip.Trace.emits_once : ∀ (p : EthLib.Networking.Gossip.GossipsubParameters)\n  (msgId : EthLib.Networking.Gossip.Message → EthLib.Networking.Gossip.MessageId)\n  (first last : EthLib.Networking.Proofs.Gossip.Trace.Event)\n  (between : List EthLib.Networking.Proofs.Gossip.Trace.Event) (state : EthLib.Networking.Gossip.RouterState)\n  (id : EthLib.Networking.Gossip.MessageId),\n  EthLib.Networking.Proofs.Gossip.Trace.Emits msgId id\n      (EthLib.Networking.Proofs.Gossip.Trace.Event.step p msgId first state).snd →\n    List.Pairwise (fun a b => a.time ≤ b.time) (first :: bet",
+      "resume_disabled": true
+    },
+    {
+      "id": "bls",
+      "title": "Ethereum deposit registration and BLS security",
+      "module": "EthLib.Consensus.Proofs.DepositAdaptive",
+      "named_theorems": [
+        "EthLib.Consensus.DepositRegistration.signingRoot_binding",
+        "EthLib.Consensus.DepositRegistration.registered_of_processDeposits_from_empty",
+        "EthLib.Consensus.DepositRegistration.Forgery.advantage_le_coCdhAdvantage",
+        "EthLib.Consensus.DepositRegistration.Forgery.nonzeroAdvantage_le_coCdhAdvantage",
+        "EthLib.Consensus.DepositRegistration.Aggregate.extractAggregate_eq_of_registrations",
+        "EthLib.Consensus.DepositRegistration.Adaptive.cachedHash_after_adaptive",
+        "EthLib.Consensus.DepositRegistration.Adaptive.prEvent_verified_ready_le_solver"
+      ],
+      "transferred_successes": 1,
+      "transferred_failures": 1,
+      "visible_theorem_inspection": true,
+      "visible_axioms": true,
+      "inspection_excerpt": "EthLib.Consensus.DepositRegistration.signingRoot_binding : ∀ {config : EthLib.Consensus.Config} {first second : EthLib.Consensus.DepositData} {root : EthLib.Consensus.Root},\n  EthLib.Consensus.DepositRegistration.signingRoot config first = Except.ok root →\n    EthLib.Consensus.DepositRegistration.signingRoot config second = Except.ok root →\n      EthLib.Consensus.DepositRegistration.message first = EthLib.Consensus.DepositRegistration.message second ∨\n        ∃ left right, EthLib.Serialization.Ssz.MessageCollision left right\nAxioms: #[propext, Classical.choice, Quot.sound]\nEthLib.Consensus.Dep",
+      "resume_disabled": true
+    }
+  ],
+  "screenshots": [
+    ".meden/evidence/remote-clone-tls.png",
+    ".meden/evidence/remote-clone-gossip.png",
+    ".meden/evidence/remote-clone-bls.png",
+    ".meden/evidence/remote-clone-failure-history-bls.png",
+    ".meden/evidence/remote-clone-saved-live-conversation.png",
+    ".meden/evidence/remote-clone-bls-source-1.png",
+    ".meden/evidence/remote-clone-bls-source-401.png",
+    ".meden/evidence/remote-clone-restart-unapproved.png"
+  ],
+  "commit": "7dba6c98d57cdc254758786b2121378cd7ba62da",
+  "binary_sha256": "sha256:bec9abfd3a55ef80d060d164616fffab800eaaf65ee24de2f710461ac48666cb",
+  "milestones": [
+    {
+      "name": "remote clone opened under fresh XDG without authority",
+      "time": "2026-11-19T04:40:41.516Z"
+    },
+    {
+      "name": "three tasks, exact theorem inspections, failure history, real conversation and source pages inspected without inference",
+      "time": "2026-11-19T04:40:43.801Z"
+    },
+    {
+      "name": "fresh URL/session restart retained history and restored no authority",
+      "time": "2026-11-19T04:40:45.189Z"
+    }
+  ],
+  "failure_history_visible": true,
+  "saved_live_conversation_visible": true,
+  "saved_conversations": 2,
+  "source_pages": [
+    1,
+    201,
+    401
+  ],
+  "bls_end_theorem_read": true,
+  "bls_source_lines": 568,
+  "fresh_session_token_after_restart": true,
+  "restart": {
+    "authorized": false,
+    "native_accepted": false,
+    "native_verified": false,
+    "resume_disabled": true
+  },
+  "portable_document_unchanged": true,
+  "finished": "2026-11-19T04:40:45.400Z",
+  "screens_reviewed": [
+    "/tmp/ethlib-remote-clone-W6q4Kr/screenshots-v11-final-review/remote-clone-tls.png",
+    "/tmp/ethlib-remote-clone-W6q4Kr/screenshots-v11-final-review/remote-clone-gossip.png",
+    "/tmp/ethlib-remote-clone-W6q4Kr/screenshots-v11-final-review/remote-clone-bls.png",
+    "/tmp/ethlib-remote-clone-W6q4Kr/screenshots-v11-final-review/remote-clone-failure-history-bls.png",
+    "/tmp/ethlib-remote-clone-W6q4Kr/screenshots-v11-final-review/remote-clone-saved-live-conversation.png",
+    "/tmp/ethlib-remote-clone-W6q4Kr/screenshots-v11-final-review/remote-clone-bls-source-1.png",
+    "/tmp/ethlib-remote-clone-W6q4Kr/screenshots-v11-final-review/remote-clone-bls-source-401.png",
+    "/tmp/ethlib-remote-clone-W6q4Kr/screenshots-v11-final-review/remote-clone-restart-unapproved.png"
+  ],
+  "bls_end_theorem_visible_at_line": 529,
+  "scope": "Actual GitHub clone of pushed fork branch, fresh local application data, public native GUI history/source browsing and restart. No inference was approved or requested; no Lean checks or dependency preparation ran. This is transfer/readability/restart evidence using installed Meden, not another physical computer or cold installation.",
+  "prior_adapter_failure_report": "/tmp/ethlib-remote-clone-gui-v10.json"
+}
